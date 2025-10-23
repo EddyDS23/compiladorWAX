@@ -1,0 +1,3489 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> program statement
+Rule 2     program -> statement
+Rule 3     program -> empty
+Rule 4     statement -> COMMENT_LINE
+Rule 5     statement -> COMMENT_BLOCK
+Rule 6     statement -> WAX IDENT COLON IDENT EQUAL expression SEMI
+Rule 7     statement -> IDENT EQUAL expression SEMI
+Rule 8     statement -> ident_list EQUAL expression_list SEMI
+Rule 9     statement -> IF LPAREN expression RPAREN LBRACE program RBRACE
+Rule 10    statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE
+Rule 11    statement -> WHILE LPAREN expression RPAREN LBRACE program RBRACE
+Rule 12    statement -> PRINT LPAREN expression RPAREN SEMI
+Rule 13    return_type -> IDENT
+Rule 14    return_type -> VOID
+Rule 15    statement -> RETURN expression_list SEMI
+Rule 16    statement -> RETURN SEMI
+Rule 17    statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+Rule 18    expression -> expression PLUS expression
+Rule 19    expression -> expression MINUS expression
+Rule 20    expression -> expression STAR expression
+Rule 21    expression -> expression SLASH expression
+Rule 22    expression -> expression LT expression
+Rule 23    expression -> expression LE expression
+Rule 24    expression -> expression GT expression
+Rule 25    expression -> expression GE expression
+Rule 26    expression -> expression EQEQ expression
+Rule 27    expression -> expression NOTEQ expression
+Rule 28    expression -> expression AND expression
+Rule 29    expression -> expression OR expression
+Rule 30    expression -> LPAREN expression RPAREN
+Rule 31    expression -> INT
+Rule 32    expression -> DOUBLE
+Rule 33    expression -> STRING
+Rule 34    expression -> BOOL
+Rule 35    expression -> IDENT
+Rule 36    expression -> LBRACKET list_items RBRACKET
+Rule 37    list_items -> list_items COMMA expression
+Rule 38    list_items -> expression
+Rule 39    list_items -> empty
+Rule 40    expression -> IDENT LBRACKET expression RBRACKET
+Rule 41    expression -> IDENT LPAREN arglist RPAREN
+Rule 42    expression -> STR LPAREN expression RPAREN
+Rule 43    expression -> INPUT LPAREN RPAREN
+Rule 44    arglist -> arglist COMMA expression
+Rule 45    arglist -> expression
+Rule 46    arglist -> empty
+Rule 47    expression_list -> expression_list COMMA expression
+Rule 48    expression_list -> expression
+Rule 49    ident_list -> ident_list COMMA IDENT
+Rule 50    ident_list -> IDENT
+Rule 51    paramlist -> paramlist COMMA IDENT COLON IDENT
+Rule 52    paramlist -> IDENT COLON IDENT
+Rule 53    paramlist -> empty
+Rule 54    empty -> <empty>
+
+Terminals, with rules where they appear
+
+AND                  : 28
+BOOL                 : 34
+COLON                : 6 17 51 52
+COMMA                : 37 44 47 49 51
+COMMENT_BLOCK        : 5
+COMMENT_LINE         : 4
+DOUBLE               : 32
+ELSE                 : 10
+EQEQ                 : 26
+EQUAL                : 6 7 8
+FUNCTION             : 17
+GE                   : 25
+GT                   : 24
+IDENT                : 6 6 7 13 17 35 40 41 49 50 51 51 52 52
+IF                   : 9 10
+INPUT                : 43
+INT                  : 31
+LBRACE               : 9 10 10 11 17
+LBRACKET             : 36 40
+LE                   : 23
+LPAREN               : 9 10 11 12 17 30 41 42 43
+LT                   : 22
+MINUS                : 19
+NOTEQ                : 27
+OR                   : 29
+PLUS                 : 18
+PRINT                : 12
+RBRACE               : 9 10 10 11 17
+RBRACKET             : 36 40
+RETURN               : 15 16
+RPAREN               : 9 10 11 12 17 30 41 42 43
+SEMI                 : 6 7 8 12 15 16
+SLASH                : 21
+STAR                 : 20
+STR                  : 42
+STRING               : 33
+VOID                 : 14
+WAX                  : 6 17
+WHILE                : 11
+error                : 
+
+Nonterminals, with rules where they appear
+
+arglist              : 41 44
+empty                : 3 39 46 53
+expression           : 6 7 9 10 11 12 18 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 26 26 27 27 28 28 29 29 30 37 38 40 42 44 45 47 48
+expression_list      : 8 15 47
+ident_list           : 8 49
+list_items           : 36 37
+paramlist            : 17 51
+program              : 1 9 10 10 11 17 0
+return_type          : 17
+statement            : 1 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . program statement
+    (2) program -> . statement
+    (3) program -> . empty
+    (4) statement -> . COMMENT_LINE
+    (5) statement -> . COMMENT_BLOCK
+    (6) statement -> . WAX IDENT COLON IDENT EQUAL expression SEMI
+    (7) statement -> . IDENT EQUAL expression SEMI
+    (8) statement -> . ident_list EQUAL expression_list SEMI
+    (9) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE
+    (10) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE
+    (11) statement -> . WHILE LPAREN expression RPAREN LBRACE program RBRACE
+    (12) statement -> . PRINT LPAREN expression RPAREN SEMI
+    (15) statement -> . RETURN expression_list SEMI
+    (16) statement -> . RETURN SEMI
+    (17) statement -> . WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+    (54) empty -> .
+    (49) ident_list -> . ident_list COMMA IDENT
+    (50) ident_list -> . IDENT
+
+  ! shift/reduce conflict for COMMENT_LINE resolved as shift
+  ! shift/reduce conflict for COMMENT_BLOCK resolved as shift
+  ! shift/reduce conflict for WAX resolved as shift
+  ! shift/reduce conflict for IDENT resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for RETURN resolved as shift
+    COMMENT_LINE    shift and go to state 4
+    COMMENT_BLOCK   shift and go to state 5
+    WAX             shift and go to state 6
+    IDENT           shift and go to state 7
+    IF              shift and go to state 9
+    WHILE           shift and go to state 10
+    PRINT           shift and go to state 11
+    RETURN          shift and go to state 12
+    $end            reduce using rule 54 (empty -> .)
+
+  ! COMMENT_LINE    [ reduce using rule 54 (empty -> .) ]
+  ! COMMENT_BLOCK   [ reduce using rule 54 (empty -> .) ]
+  ! WAX             [ reduce using rule 54 (empty -> .) ]
+  ! IDENT           [ reduce using rule 54 (empty -> .) ]
+  ! IF              [ reduce using rule 54 (empty -> .) ]
+  ! WHILE           [ reduce using rule 54 (empty -> .) ]
+  ! PRINT           [ reduce using rule 54 (empty -> .) ]
+  ! RETURN          [ reduce using rule 54 (empty -> .) ]
+
+    program                        shift and go to state 1
+    statement                      shift and go to state 2
+    empty                          shift and go to state 3
+    ident_list                     shift and go to state 8
+
+state 1
+
+    (0) S' -> program .
+    (1) program -> program . statement
+    (4) statement -> . COMMENT_LINE
+    (5) statement -> . COMMENT_BLOCK
+    (6) statement -> . WAX IDENT COLON IDENT EQUAL expression SEMI
+    (7) statement -> . IDENT EQUAL expression SEMI
+    (8) statement -> . ident_list EQUAL expression_list SEMI
+    (9) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE
+    (10) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE
+    (11) statement -> . WHILE LPAREN expression RPAREN LBRACE program RBRACE
+    (12) statement -> . PRINT LPAREN expression RPAREN SEMI
+    (15) statement -> . RETURN expression_list SEMI
+    (16) statement -> . RETURN SEMI
+    (17) statement -> . WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+    (49) ident_list -> . ident_list COMMA IDENT
+    (50) ident_list -> . IDENT
+
+    COMMENT_LINE    shift and go to state 4
+    COMMENT_BLOCK   shift and go to state 5
+    WAX             shift and go to state 6
+    IDENT           shift and go to state 7
+    IF              shift and go to state 9
+    WHILE           shift and go to state 10
+    PRINT           shift and go to state 11
+    RETURN          shift and go to state 12
+
+    statement                      shift and go to state 13
+    ident_list                     shift and go to state 8
+
+state 2
+
+    (2) program -> statement .
+
+    COMMENT_LINE    reduce using rule 2 (program -> statement .)
+    COMMENT_BLOCK   reduce using rule 2 (program -> statement .)
+    WAX             reduce using rule 2 (program -> statement .)
+    IDENT           reduce using rule 2 (program -> statement .)
+    IF              reduce using rule 2 (program -> statement .)
+    WHILE           reduce using rule 2 (program -> statement .)
+    PRINT           reduce using rule 2 (program -> statement .)
+    RETURN          reduce using rule 2 (program -> statement .)
+    $end            reduce using rule 2 (program -> statement .)
+    RBRACE          reduce using rule 2 (program -> statement .)
+
+
+state 3
+
+    (3) program -> empty .
+
+    COMMENT_LINE    reduce using rule 3 (program -> empty .)
+    COMMENT_BLOCK   reduce using rule 3 (program -> empty .)
+    WAX             reduce using rule 3 (program -> empty .)
+    IDENT           reduce using rule 3 (program -> empty .)
+    IF              reduce using rule 3 (program -> empty .)
+    WHILE           reduce using rule 3 (program -> empty .)
+    PRINT           reduce using rule 3 (program -> empty .)
+    RETURN          reduce using rule 3 (program -> empty .)
+    $end            reduce using rule 3 (program -> empty .)
+    RBRACE          reduce using rule 3 (program -> empty .)
+
+
+state 4
+
+    (4) statement -> COMMENT_LINE .
+
+    COMMENT_LINE    reduce using rule 4 (statement -> COMMENT_LINE .)
+    COMMENT_BLOCK   reduce using rule 4 (statement -> COMMENT_LINE .)
+    WAX             reduce using rule 4 (statement -> COMMENT_LINE .)
+    IDENT           reduce using rule 4 (statement -> COMMENT_LINE .)
+    IF              reduce using rule 4 (statement -> COMMENT_LINE .)
+    WHILE           reduce using rule 4 (statement -> COMMENT_LINE .)
+    PRINT           reduce using rule 4 (statement -> COMMENT_LINE .)
+    RETURN          reduce using rule 4 (statement -> COMMENT_LINE .)
+    $end            reduce using rule 4 (statement -> COMMENT_LINE .)
+    RBRACE          reduce using rule 4 (statement -> COMMENT_LINE .)
+
+
+state 5
+
+    (5) statement -> COMMENT_BLOCK .
+
+    COMMENT_LINE    reduce using rule 5 (statement -> COMMENT_BLOCK .)
+    COMMENT_BLOCK   reduce using rule 5 (statement -> COMMENT_BLOCK .)
+    WAX             reduce using rule 5 (statement -> COMMENT_BLOCK .)
+    IDENT           reduce using rule 5 (statement -> COMMENT_BLOCK .)
+    IF              reduce using rule 5 (statement -> COMMENT_BLOCK .)
+    WHILE           reduce using rule 5 (statement -> COMMENT_BLOCK .)
+    PRINT           reduce using rule 5 (statement -> COMMENT_BLOCK .)
+    RETURN          reduce using rule 5 (statement -> COMMENT_BLOCK .)
+    $end            reduce using rule 5 (statement -> COMMENT_BLOCK .)
+    RBRACE          reduce using rule 5 (statement -> COMMENT_BLOCK .)
+
+
+state 6
+
+    (6) statement -> WAX . IDENT COLON IDENT EQUAL expression SEMI
+    (17) statement -> WAX . FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+
+    IDENT           shift and go to state 14
+    FUNCTION        shift and go to state 15
+
+
+state 7
+
+    (7) statement -> IDENT . EQUAL expression SEMI
+    (50) ident_list -> IDENT .
+
+  ! shift/reduce conflict for EQUAL resolved as shift
+    EQUAL           shift and go to state 16
+    COMMA           reduce using rule 50 (ident_list -> IDENT .)
+
+  ! EQUAL           [ reduce using rule 50 (ident_list -> IDENT .) ]
+
+
+state 8
+
+    (8) statement -> ident_list . EQUAL expression_list SEMI
+    (49) ident_list -> ident_list . COMMA IDENT
+
+    EQUAL           shift and go to state 17
+    COMMA           shift and go to state 18
+
+
+state 9
+
+    (9) statement -> IF . LPAREN expression RPAREN LBRACE program RBRACE
+    (10) statement -> IF . LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE
+
+    LPAREN          shift and go to state 19
+
+
+state 10
+
+    (11) statement -> WHILE . LPAREN expression RPAREN LBRACE program RBRACE
+
+    LPAREN          shift and go to state 20
+
+
+state 11
+
+    (12) statement -> PRINT . LPAREN expression RPAREN SEMI
+
+    LPAREN          shift and go to state 21
+
+
+state 12
+
+    (15) statement -> RETURN . expression_list SEMI
+    (16) statement -> RETURN . SEMI
+    (47) expression_list -> . expression_list COMMA expression
+    (48) expression_list -> . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    SEMI            shift and go to state 23
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression_list                shift and go to state 22
+    expression                     shift and go to state 24
+
+state 13
+
+    (1) program -> program statement .
+
+    COMMENT_LINE    reduce using rule 1 (program -> program statement .)
+    COMMENT_BLOCK   reduce using rule 1 (program -> program statement .)
+    WAX             reduce using rule 1 (program -> program statement .)
+    IDENT           reduce using rule 1 (program -> program statement .)
+    IF              reduce using rule 1 (program -> program statement .)
+    WHILE           reduce using rule 1 (program -> program statement .)
+    PRINT           reduce using rule 1 (program -> program statement .)
+    RETURN          reduce using rule 1 (program -> program statement .)
+    $end            reduce using rule 1 (program -> program statement .)
+    RBRACE          reduce using rule 1 (program -> program statement .)
+
+
+state 14
+
+    (6) statement -> WAX IDENT . COLON IDENT EQUAL expression SEMI
+
+    COLON           shift and go to state 34
+
+
+state 15
+
+    (17) statement -> WAX FUNCTION . IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+
+    IDENT           shift and go to state 35
+
+
+state 16
+
+    (7) statement -> IDENT EQUAL . expression SEMI
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 36
+
+state 17
+
+    (8) statement -> ident_list EQUAL . expression_list SEMI
+    (47) expression_list -> . expression_list COMMA expression
+    (48) expression_list -> . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression_list                shift and go to state 37
+    expression                     shift and go to state 24
+
+state 18
+
+    (49) ident_list -> ident_list COMMA . IDENT
+
+    IDENT           shift and go to state 38
+
+
+state 19
+
+    (9) statement -> IF LPAREN . expression RPAREN LBRACE program RBRACE
+    (10) statement -> IF LPAREN . expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 39
+
+state 20
+
+    (11) statement -> WHILE LPAREN . expression RPAREN LBRACE program RBRACE
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 40
+
+state 21
+
+    (12) statement -> PRINT LPAREN . expression RPAREN SEMI
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 41
+
+state 22
+
+    (15) statement -> RETURN expression_list . SEMI
+    (47) expression_list -> expression_list . COMMA expression
+
+    SEMI            shift and go to state 42
+    COMMA           shift and go to state 43
+
+
+state 23
+
+    (16) statement -> RETURN SEMI .
+
+    COMMENT_LINE    reduce using rule 16 (statement -> RETURN SEMI .)
+    COMMENT_BLOCK   reduce using rule 16 (statement -> RETURN SEMI .)
+    WAX             reduce using rule 16 (statement -> RETURN SEMI .)
+    IDENT           reduce using rule 16 (statement -> RETURN SEMI .)
+    IF              reduce using rule 16 (statement -> RETURN SEMI .)
+    WHILE           reduce using rule 16 (statement -> RETURN SEMI .)
+    PRINT           reduce using rule 16 (statement -> RETURN SEMI .)
+    RETURN          reduce using rule 16 (statement -> RETURN SEMI .)
+    $end            reduce using rule 16 (statement -> RETURN SEMI .)
+    RBRACE          reduce using rule 16 (statement -> RETURN SEMI .)
+
+
+state 24
+
+    (48) expression_list -> expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    SEMI            reduce using rule 48 (expression_list -> expression .)
+    COMMA           reduce using rule 48 (expression_list -> expression .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+
+state 25
+
+    (30) expression -> LPAREN . expression RPAREN
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 56
+
+state 26
+
+    (31) expression -> INT .
+
+    PLUS            reduce using rule 31 (expression -> INT .)
+    MINUS           reduce using rule 31 (expression -> INT .)
+    STAR            reduce using rule 31 (expression -> INT .)
+    SLASH           reduce using rule 31 (expression -> INT .)
+    LT              reduce using rule 31 (expression -> INT .)
+    LE              reduce using rule 31 (expression -> INT .)
+    GT              reduce using rule 31 (expression -> INT .)
+    GE              reduce using rule 31 (expression -> INT .)
+    EQEQ            reduce using rule 31 (expression -> INT .)
+    NOTEQ           reduce using rule 31 (expression -> INT .)
+    AND             reduce using rule 31 (expression -> INT .)
+    OR              reduce using rule 31 (expression -> INT .)
+    SEMI            reduce using rule 31 (expression -> INT .)
+    COMMA           reduce using rule 31 (expression -> INT .)
+    RPAREN          reduce using rule 31 (expression -> INT .)
+    RBRACKET        reduce using rule 31 (expression -> INT .)
+
+
+state 27
+
+    (32) expression -> DOUBLE .
+
+    PLUS            reduce using rule 32 (expression -> DOUBLE .)
+    MINUS           reduce using rule 32 (expression -> DOUBLE .)
+    STAR            reduce using rule 32 (expression -> DOUBLE .)
+    SLASH           reduce using rule 32 (expression -> DOUBLE .)
+    LT              reduce using rule 32 (expression -> DOUBLE .)
+    LE              reduce using rule 32 (expression -> DOUBLE .)
+    GT              reduce using rule 32 (expression -> DOUBLE .)
+    GE              reduce using rule 32 (expression -> DOUBLE .)
+    EQEQ            reduce using rule 32 (expression -> DOUBLE .)
+    NOTEQ           reduce using rule 32 (expression -> DOUBLE .)
+    AND             reduce using rule 32 (expression -> DOUBLE .)
+    OR              reduce using rule 32 (expression -> DOUBLE .)
+    SEMI            reduce using rule 32 (expression -> DOUBLE .)
+    COMMA           reduce using rule 32 (expression -> DOUBLE .)
+    RPAREN          reduce using rule 32 (expression -> DOUBLE .)
+    RBRACKET        reduce using rule 32 (expression -> DOUBLE .)
+
+
+state 28
+
+    (33) expression -> STRING .
+
+    PLUS            reduce using rule 33 (expression -> STRING .)
+    MINUS           reduce using rule 33 (expression -> STRING .)
+    STAR            reduce using rule 33 (expression -> STRING .)
+    SLASH           reduce using rule 33 (expression -> STRING .)
+    LT              reduce using rule 33 (expression -> STRING .)
+    LE              reduce using rule 33 (expression -> STRING .)
+    GT              reduce using rule 33 (expression -> STRING .)
+    GE              reduce using rule 33 (expression -> STRING .)
+    EQEQ            reduce using rule 33 (expression -> STRING .)
+    NOTEQ           reduce using rule 33 (expression -> STRING .)
+    AND             reduce using rule 33 (expression -> STRING .)
+    OR              reduce using rule 33 (expression -> STRING .)
+    SEMI            reduce using rule 33 (expression -> STRING .)
+    COMMA           reduce using rule 33 (expression -> STRING .)
+    RPAREN          reduce using rule 33 (expression -> STRING .)
+    RBRACKET        reduce using rule 33 (expression -> STRING .)
+
+
+state 29
+
+    (34) expression -> BOOL .
+
+    PLUS            reduce using rule 34 (expression -> BOOL .)
+    MINUS           reduce using rule 34 (expression -> BOOL .)
+    STAR            reduce using rule 34 (expression -> BOOL .)
+    SLASH           reduce using rule 34 (expression -> BOOL .)
+    LT              reduce using rule 34 (expression -> BOOL .)
+    LE              reduce using rule 34 (expression -> BOOL .)
+    GT              reduce using rule 34 (expression -> BOOL .)
+    GE              reduce using rule 34 (expression -> BOOL .)
+    EQEQ            reduce using rule 34 (expression -> BOOL .)
+    NOTEQ           reduce using rule 34 (expression -> BOOL .)
+    AND             reduce using rule 34 (expression -> BOOL .)
+    OR              reduce using rule 34 (expression -> BOOL .)
+    SEMI            reduce using rule 34 (expression -> BOOL .)
+    COMMA           reduce using rule 34 (expression -> BOOL .)
+    RPAREN          reduce using rule 34 (expression -> BOOL .)
+    RBRACKET        reduce using rule 34 (expression -> BOOL .)
+
+
+state 30
+
+    (35) expression -> IDENT .
+    (40) expression -> IDENT . LBRACKET expression RBRACKET
+    (41) expression -> IDENT . LPAREN arglist RPAREN
+
+    PLUS            reduce using rule 35 (expression -> IDENT .)
+    MINUS           reduce using rule 35 (expression -> IDENT .)
+    STAR            reduce using rule 35 (expression -> IDENT .)
+    SLASH           reduce using rule 35 (expression -> IDENT .)
+    LT              reduce using rule 35 (expression -> IDENT .)
+    LE              reduce using rule 35 (expression -> IDENT .)
+    GT              reduce using rule 35 (expression -> IDENT .)
+    GE              reduce using rule 35 (expression -> IDENT .)
+    EQEQ            reduce using rule 35 (expression -> IDENT .)
+    NOTEQ           reduce using rule 35 (expression -> IDENT .)
+    AND             reduce using rule 35 (expression -> IDENT .)
+    OR              reduce using rule 35 (expression -> IDENT .)
+    SEMI            reduce using rule 35 (expression -> IDENT .)
+    COMMA           reduce using rule 35 (expression -> IDENT .)
+    RPAREN          reduce using rule 35 (expression -> IDENT .)
+    RBRACKET        reduce using rule 35 (expression -> IDENT .)
+    LBRACKET        shift and go to state 57
+    LPAREN          shift and go to state 58
+
+
+state 31
+
+    (36) expression -> LBRACKET . list_items RBRACKET
+    (37) list_items -> . list_items COMMA expression
+    (38) list_items -> . expression
+    (39) list_items -> . empty
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+    (54) empty -> .
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+    RBRACKET        reduce using rule 54 (empty -> .)
+    COMMA           reduce using rule 54 (empty -> .)
+
+    list_items                     shift and go to state 59
+    expression                     shift and go to state 60
+    empty                          shift and go to state 61
+
+state 32
+
+    (42) expression -> STR . LPAREN expression RPAREN
+
+    LPAREN          shift and go to state 62
+
+
+state 33
+
+    (43) expression -> INPUT . LPAREN RPAREN
+
+    LPAREN          shift and go to state 63
+
+
+state 34
+
+    (6) statement -> WAX IDENT COLON . IDENT EQUAL expression SEMI
+
+    IDENT           shift and go to state 64
+
+
+state 35
+
+    (17) statement -> WAX FUNCTION IDENT . COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+
+    COLON           shift and go to state 65
+
+
+state 36
+
+    (7) statement -> IDENT EQUAL expression . SEMI
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    SEMI            shift and go to state 66
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+
+state 37
+
+    (8) statement -> ident_list EQUAL expression_list . SEMI
+    (47) expression_list -> expression_list . COMMA expression
+
+    SEMI            shift and go to state 67
+    COMMA           shift and go to state 43
+
+
+state 38
+
+    (49) ident_list -> ident_list COMMA IDENT .
+
+    EQUAL           reduce using rule 49 (ident_list -> ident_list COMMA IDENT .)
+    COMMA           reduce using rule 49 (ident_list -> ident_list COMMA IDENT .)
+
+
+state 39
+
+    (9) statement -> IF LPAREN expression . RPAREN LBRACE program RBRACE
+    (10) statement -> IF LPAREN expression . RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    RPAREN          shift and go to state 68
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+
+state 40
+
+    (11) statement -> WHILE LPAREN expression . RPAREN LBRACE program RBRACE
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    RPAREN          shift and go to state 69
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+
+state 41
+
+    (12) statement -> PRINT LPAREN expression . RPAREN SEMI
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    RPAREN          shift and go to state 70
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+
+state 42
+
+    (15) statement -> RETURN expression_list SEMI .
+
+    COMMENT_LINE    reduce using rule 15 (statement -> RETURN expression_list SEMI .)
+    COMMENT_BLOCK   reduce using rule 15 (statement -> RETURN expression_list SEMI .)
+    WAX             reduce using rule 15 (statement -> RETURN expression_list SEMI .)
+    IDENT           reduce using rule 15 (statement -> RETURN expression_list SEMI .)
+    IF              reduce using rule 15 (statement -> RETURN expression_list SEMI .)
+    WHILE           reduce using rule 15 (statement -> RETURN expression_list SEMI .)
+    PRINT           reduce using rule 15 (statement -> RETURN expression_list SEMI .)
+    RETURN          reduce using rule 15 (statement -> RETURN expression_list SEMI .)
+    $end            reduce using rule 15 (statement -> RETURN expression_list SEMI .)
+    RBRACE          reduce using rule 15 (statement -> RETURN expression_list SEMI .)
+
+
+state 43
+
+    (47) expression_list -> expression_list COMMA . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 71
+
+state 44
+
+    (18) expression -> expression PLUS . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 72
+
+state 45
+
+    (19) expression -> expression MINUS . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 73
+
+state 46
+
+    (20) expression -> expression STAR . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 74
+
+state 47
+
+    (21) expression -> expression SLASH . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 75
+
+state 48
+
+    (22) expression -> expression LT . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 76
+
+state 49
+
+    (23) expression -> expression LE . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 77
+
+state 50
+
+    (24) expression -> expression GT . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 78
+
+state 51
+
+    (25) expression -> expression GE . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 79
+
+state 52
+
+    (26) expression -> expression EQEQ . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 80
+
+state 53
+
+    (27) expression -> expression NOTEQ . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 81
+
+state 54
+
+    (28) expression -> expression AND . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 82
+
+state 55
+
+    (29) expression -> expression OR . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 83
+
+state 56
+
+    (30) expression -> LPAREN expression . RPAREN
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    RPAREN          shift and go to state 84
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+
+state 57
+
+    (40) expression -> IDENT LBRACKET . expression RBRACKET
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 85
+
+state 58
+
+    (41) expression -> IDENT LPAREN . arglist RPAREN
+    (44) arglist -> . arglist COMMA expression
+    (45) arglist -> . expression
+    (46) arglist -> . empty
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+    (54) empty -> .
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+    RPAREN          reduce using rule 54 (empty -> .)
+    COMMA           reduce using rule 54 (empty -> .)
+
+    arglist                        shift and go to state 86
+    expression                     shift and go to state 87
+    empty                          shift and go to state 88
+
+state 59
+
+    (36) expression -> LBRACKET list_items . RBRACKET
+    (37) list_items -> list_items . COMMA expression
+
+    RBRACKET        shift and go to state 89
+    COMMA           shift and go to state 90
+
+
+state 60
+
+    (38) list_items -> expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    RBRACKET        reduce using rule 38 (list_items -> expression .)
+    COMMA           reduce using rule 38 (list_items -> expression .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+
+state 61
+
+    (39) list_items -> empty .
+
+    RBRACKET        reduce using rule 39 (list_items -> empty .)
+    COMMA           reduce using rule 39 (list_items -> empty .)
+
+
+state 62
+
+    (42) expression -> STR LPAREN . expression RPAREN
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 91
+
+state 63
+
+    (43) expression -> INPUT LPAREN . RPAREN
+
+    RPAREN          shift and go to state 92
+
+
+state 64
+
+    (6) statement -> WAX IDENT COLON IDENT . EQUAL expression SEMI
+
+    EQUAL           shift and go to state 93
+
+
+state 65
+
+    (17) statement -> WAX FUNCTION IDENT COLON . return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+    (13) return_type -> . IDENT
+    (14) return_type -> . VOID
+
+    IDENT           shift and go to state 94
+    VOID            shift and go to state 96
+
+    return_type                    shift and go to state 95
+
+state 66
+
+    (7) statement -> IDENT EQUAL expression SEMI .
+
+    COMMENT_LINE    reduce using rule 7 (statement -> IDENT EQUAL expression SEMI .)
+    COMMENT_BLOCK   reduce using rule 7 (statement -> IDENT EQUAL expression SEMI .)
+    WAX             reduce using rule 7 (statement -> IDENT EQUAL expression SEMI .)
+    IDENT           reduce using rule 7 (statement -> IDENT EQUAL expression SEMI .)
+    IF              reduce using rule 7 (statement -> IDENT EQUAL expression SEMI .)
+    WHILE           reduce using rule 7 (statement -> IDENT EQUAL expression SEMI .)
+    PRINT           reduce using rule 7 (statement -> IDENT EQUAL expression SEMI .)
+    RETURN          reduce using rule 7 (statement -> IDENT EQUAL expression SEMI .)
+    $end            reduce using rule 7 (statement -> IDENT EQUAL expression SEMI .)
+    RBRACE          reduce using rule 7 (statement -> IDENT EQUAL expression SEMI .)
+
+
+state 67
+
+    (8) statement -> ident_list EQUAL expression_list SEMI .
+
+    COMMENT_LINE    reduce using rule 8 (statement -> ident_list EQUAL expression_list SEMI .)
+    COMMENT_BLOCK   reduce using rule 8 (statement -> ident_list EQUAL expression_list SEMI .)
+    WAX             reduce using rule 8 (statement -> ident_list EQUAL expression_list SEMI .)
+    IDENT           reduce using rule 8 (statement -> ident_list EQUAL expression_list SEMI .)
+    IF              reduce using rule 8 (statement -> ident_list EQUAL expression_list SEMI .)
+    WHILE           reduce using rule 8 (statement -> ident_list EQUAL expression_list SEMI .)
+    PRINT           reduce using rule 8 (statement -> ident_list EQUAL expression_list SEMI .)
+    RETURN          reduce using rule 8 (statement -> ident_list EQUAL expression_list SEMI .)
+    $end            reduce using rule 8 (statement -> ident_list EQUAL expression_list SEMI .)
+    RBRACE          reduce using rule 8 (statement -> ident_list EQUAL expression_list SEMI .)
+
+
+state 68
+
+    (9) statement -> IF LPAREN expression RPAREN . LBRACE program RBRACE
+    (10) statement -> IF LPAREN expression RPAREN . LBRACE program RBRACE ELSE LBRACE program RBRACE
+
+    LBRACE          shift and go to state 97
+
+
+state 69
+
+    (11) statement -> WHILE LPAREN expression RPAREN . LBRACE program RBRACE
+
+    LBRACE          shift and go to state 98
+
+
+state 70
+
+    (12) statement -> PRINT LPAREN expression RPAREN . SEMI
+
+    SEMI            shift and go to state 99
+
+
+state 71
+
+    (47) expression_list -> expression_list COMMA expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    SEMI            reduce using rule 47 (expression_list -> expression_list COMMA expression .)
+    COMMA           reduce using rule 47 (expression_list -> expression_list COMMA expression .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+
+state 72
+
+    (18) expression -> expression PLUS expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    PLUS            reduce using rule 18 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 18 (expression -> expression PLUS expression .)
+    LT              reduce using rule 18 (expression -> expression PLUS expression .)
+    LE              reduce using rule 18 (expression -> expression PLUS expression .)
+    GT              reduce using rule 18 (expression -> expression PLUS expression .)
+    GE              reduce using rule 18 (expression -> expression PLUS expression .)
+    EQEQ            reduce using rule 18 (expression -> expression PLUS expression .)
+    NOTEQ           reduce using rule 18 (expression -> expression PLUS expression .)
+    AND             reduce using rule 18 (expression -> expression PLUS expression .)
+    OR              reduce using rule 18 (expression -> expression PLUS expression .)
+    SEMI            reduce using rule 18 (expression -> expression PLUS expression .)
+    COMMA           reduce using rule 18 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 18 (expression -> expression PLUS expression .)
+    RBRACKET        reduce using rule 18 (expression -> expression PLUS expression .)
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+
+  ! STAR            [ reduce using rule 18 (expression -> expression PLUS expression .) ]
+  ! SLASH           [ reduce using rule 18 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 44 ]
+  ! MINUS           [ shift and go to state 45 ]
+  ! LT              [ shift and go to state 48 ]
+  ! LE              [ shift and go to state 49 ]
+  ! GT              [ shift and go to state 50 ]
+  ! GE              [ shift and go to state 51 ]
+  ! EQEQ            [ shift and go to state 52 ]
+  ! NOTEQ           [ shift and go to state 53 ]
+  ! AND             [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+
+
+state 73
+
+    (19) expression -> expression MINUS expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    PLUS            reduce using rule 19 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 19 (expression -> expression MINUS expression .)
+    LT              reduce using rule 19 (expression -> expression MINUS expression .)
+    LE              reduce using rule 19 (expression -> expression MINUS expression .)
+    GT              reduce using rule 19 (expression -> expression MINUS expression .)
+    GE              reduce using rule 19 (expression -> expression MINUS expression .)
+    EQEQ            reduce using rule 19 (expression -> expression MINUS expression .)
+    NOTEQ           reduce using rule 19 (expression -> expression MINUS expression .)
+    AND             reduce using rule 19 (expression -> expression MINUS expression .)
+    OR              reduce using rule 19 (expression -> expression MINUS expression .)
+    SEMI            reduce using rule 19 (expression -> expression MINUS expression .)
+    COMMA           reduce using rule 19 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 19 (expression -> expression MINUS expression .)
+    RBRACKET        reduce using rule 19 (expression -> expression MINUS expression .)
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+
+  ! STAR            [ reduce using rule 19 (expression -> expression MINUS expression .) ]
+  ! SLASH           [ reduce using rule 19 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ shift and go to state 44 ]
+  ! MINUS           [ shift and go to state 45 ]
+  ! LT              [ shift and go to state 48 ]
+  ! LE              [ shift and go to state 49 ]
+  ! GT              [ shift and go to state 50 ]
+  ! GE              [ shift and go to state 51 ]
+  ! EQEQ            [ shift and go to state 52 ]
+  ! NOTEQ           [ shift and go to state 53 ]
+  ! AND             [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+
+
+state 74
+
+    (20) expression -> expression STAR expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    PLUS            reduce using rule 20 (expression -> expression STAR expression .)
+    MINUS           reduce using rule 20 (expression -> expression STAR expression .)
+    STAR            reduce using rule 20 (expression -> expression STAR expression .)
+    SLASH           reduce using rule 20 (expression -> expression STAR expression .)
+    LT              reduce using rule 20 (expression -> expression STAR expression .)
+    LE              reduce using rule 20 (expression -> expression STAR expression .)
+    GT              reduce using rule 20 (expression -> expression STAR expression .)
+    GE              reduce using rule 20 (expression -> expression STAR expression .)
+    EQEQ            reduce using rule 20 (expression -> expression STAR expression .)
+    NOTEQ           reduce using rule 20 (expression -> expression STAR expression .)
+    AND             reduce using rule 20 (expression -> expression STAR expression .)
+    OR              reduce using rule 20 (expression -> expression STAR expression .)
+    SEMI            reduce using rule 20 (expression -> expression STAR expression .)
+    COMMA           reduce using rule 20 (expression -> expression STAR expression .)
+    RPAREN          reduce using rule 20 (expression -> expression STAR expression .)
+    RBRACKET        reduce using rule 20 (expression -> expression STAR expression .)
+
+  ! PLUS            [ shift and go to state 44 ]
+  ! MINUS           [ shift and go to state 45 ]
+  ! STAR            [ shift and go to state 46 ]
+  ! SLASH           [ shift and go to state 47 ]
+  ! LT              [ shift and go to state 48 ]
+  ! LE              [ shift and go to state 49 ]
+  ! GT              [ shift and go to state 50 ]
+  ! GE              [ shift and go to state 51 ]
+  ! EQEQ            [ shift and go to state 52 ]
+  ! NOTEQ           [ shift and go to state 53 ]
+  ! AND             [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+
+
+state 75
+
+    (21) expression -> expression SLASH expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    PLUS            reduce using rule 21 (expression -> expression SLASH expression .)
+    MINUS           reduce using rule 21 (expression -> expression SLASH expression .)
+    STAR            reduce using rule 21 (expression -> expression SLASH expression .)
+    SLASH           reduce using rule 21 (expression -> expression SLASH expression .)
+    LT              reduce using rule 21 (expression -> expression SLASH expression .)
+    LE              reduce using rule 21 (expression -> expression SLASH expression .)
+    GT              reduce using rule 21 (expression -> expression SLASH expression .)
+    GE              reduce using rule 21 (expression -> expression SLASH expression .)
+    EQEQ            reduce using rule 21 (expression -> expression SLASH expression .)
+    NOTEQ           reduce using rule 21 (expression -> expression SLASH expression .)
+    AND             reduce using rule 21 (expression -> expression SLASH expression .)
+    OR              reduce using rule 21 (expression -> expression SLASH expression .)
+    SEMI            reduce using rule 21 (expression -> expression SLASH expression .)
+    COMMA           reduce using rule 21 (expression -> expression SLASH expression .)
+    RPAREN          reduce using rule 21 (expression -> expression SLASH expression .)
+    RBRACKET        reduce using rule 21 (expression -> expression SLASH expression .)
+
+  ! PLUS            [ shift and go to state 44 ]
+  ! MINUS           [ shift and go to state 45 ]
+  ! STAR            [ shift and go to state 46 ]
+  ! SLASH           [ shift and go to state 47 ]
+  ! LT              [ shift and go to state 48 ]
+  ! LE              [ shift and go to state 49 ]
+  ! GT              [ shift and go to state 50 ]
+  ! GE              [ shift and go to state 51 ]
+  ! EQEQ            [ shift and go to state 52 ]
+  ! NOTEQ           [ shift and go to state 53 ]
+  ! AND             [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+
+
+state 76
+
+    (22) expression -> expression LT expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    LT              reduce using rule 22 (expression -> expression LT expression .)
+    LE              reduce using rule 22 (expression -> expression LT expression .)
+    GT              reduce using rule 22 (expression -> expression LT expression .)
+    GE              reduce using rule 22 (expression -> expression LT expression .)
+    EQEQ            reduce using rule 22 (expression -> expression LT expression .)
+    NOTEQ           reduce using rule 22 (expression -> expression LT expression .)
+    AND             reduce using rule 22 (expression -> expression LT expression .)
+    OR              reduce using rule 22 (expression -> expression LT expression .)
+    SEMI            reduce using rule 22 (expression -> expression LT expression .)
+    COMMA           reduce using rule 22 (expression -> expression LT expression .)
+    RPAREN          reduce using rule 22 (expression -> expression LT expression .)
+    RBRACKET        reduce using rule 22 (expression -> expression LT expression .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+
+  ! PLUS            [ reduce using rule 22 (expression -> expression LT expression .) ]
+  ! MINUS           [ reduce using rule 22 (expression -> expression LT expression .) ]
+  ! STAR            [ reduce using rule 22 (expression -> expression LT expression .) ]
+  ! SLASH           [ reduce using rule 22 (expression -> expression LT expression .) ]
+  ! LT              [ shift and go to state 48 ]
+  ! LE              [ shift and go to state 49 ]
+  ! GT              [ shift and go to state 50 ]
+  ! GE              [ shift and go to state 51 ]
+  ! EQEQ            [ shift and go to state 52 ]
+  ! NOTEQ           [ shift and go to state 53 ]
+  ! AND             [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+
+
+state 77
+
+    (23) expression -> expression LE expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    LT              reduce using rule 23 (expression -> expression LE expression .)
+    LE              reduce using rule 23 (expression -> expression LE expression .)
+    GT              reduce using rule 23 (expression -> expression LE expression .)
+    GE              reduce using rule 23 (expression -> expression LE expression .)
+    EQEQ            reduce using rule 23 (expression -> expression LE expression .)
+    NOTEQ           reduce using rule 23 (expression -> expression LE expression .)
+    AND             reduce using rule 23 (expression -> expression LE expression .)
+    OR              reduce using rule 23 (expression -> expression LE expression .)
+    SEMI            reduce using rule 23 (expression -> expression LE expression .)
+    COMMA           reduce using rule 23 (expression -> expression LE expression .)
+    RPAREN          reduce using rule 23 (expression -> expression LE expression .)
+    RBRACKET        reduce using rule 23 (expression -> expression LE expression .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+
+  ! PLUS            [ reduce using rule 23 (expression -> expression LE expression .) ]
+  ! MINUS           [ reduce using rule 23 (expression -> expression LE expression .) ]
+  ! STAR            [ reduce using rule 23 (expression -> expression LE expression .) ]
+  ! SLASH           [ reduce using rule 23 (expression -> expression LE expression .) ]
+  ! LT              [ shift and go to state 48 ]
+  ! LE              [ shift and go to state 49 ]
+  ! GT              [ shift and go to state 50 ]
+  ! GE              [ shift and go to state 51 ]
+  ! EQEQ            [ shift and go to state 52 ]
+  ! NOTEQ           [ shift and go to state 53 ]
+  ! AND             [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+
+
+state 78
+
+    (24) expression -> expression GT expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    LT              reduce using rule 24 (expression -> expression GT expression .)
+    LE              reduce using rule 24 (expression -> expression GT expression .)
+    GT              reduce using rule 24 (expression -> expression GT expression .)
+    GE              reduce using rule 24 (expression -> expression GT expression .)
+    EQEQ            reduce using rule 24 (expression -> expression GT expression .)
+    NOTEQ           reduce using rule 24 (expression -> expression GT expression .)
+    AND             reduce using rule 24 (expression -> expression GT expression .)
+    OR              reduce using rule 24 (expression -> expression GT expression .)
+    SEMI            reduce using rule 24 (expression -> expression GT expression .)
+    COMMA           reduce using rule 24 (expression -> expression GT expression .)
+    RPAREN          reduce using rule 24 (expression -> expression GT expression .)
+    RBRACKET        reduce using rule 24 (expression -> expression GT expression .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+
+  ! PLUS            [ reduce using rule 24 (expression -> expression GT expression .) ]
+  ! MINUS           [ reduce using rule 24 (expression -> expression GT expression .) ]
+  ! STAR            [ reduce using rule 24 (expression -> expression GT expression .) ]
+  ! SLASH           [ reduce using rule 24 (expression -> expression GT expression .) ]
+  ! LT              [ shift and go to state 48 ]
+  ! LE              [ shift and go to state 49 ]
+  ! GT              [ shift and go to state 50 ]
+  ! GE              [ shift and go to state 51 ]
+  ! EQEQ            [ shift and go to state 52 ]
+  ! NOTEQ           [ shift and go to state 53 ]
+  ! AND             [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+
+
+state 79
+
+    (25) expression -> expression GE expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    LT              reduce using rule 25 (expression -> expression GE expression .)
+    LE              reduce using rule 25 (expression -> expression GE expression .)
+    GT              reduce using rule 25 (expression -> expression GE expression .)
+    GE              reduce using rule 25 (expression -> expression GE expression .)
+    EQEQ            reduce using rule 25 (expression -> expression GE expression .)
+    NOTEQ           reduce using rule 25 (expression -> expression GE expression .)
+    AND             reduce using rule 25 (expression -> expression GE expression .)
+    OR              reduce using rule 25 (expression -> expression GE expression .)
+    SEMI            reduce using rule 25 (expression -> expression GE expression .)
+    COMMA           reduce using rule 25 (expression -> expression GE expression .)
+    RPAREN          reduce using rule 25 (expression -> expression GE expression .)
+    RBRACKET        reduce using rule 25 (expression -> expression GE expression .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+
+  ! PLUS            [ reduce using rule 25 (expression -> expression GE expression .) ]
+  ! MINUS           [ reduce using rule 25 (expression -> expression GE expression .) ]
+  ! STAR            [ reduce using rule 25 (expression -> expression GE expression .) ]
+  ! SLASH           [ reduce using rule 25 (expression -> expression GE expression .) ]
+  ! LT              [ shift and go to state 48 ]
+  ! LE              [ shift and go to state 49 ]
+  ! GT              [ shift and go to state 50 ]
+  ! GE              [ shift and go to state 51 ]
+  ! EQEQ            [ shift and go to state 52 ]
+  ! NOTEQ           [ shift and go to state 53 ]
+  ! AND             [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+
+
+state 80
+
+    (26) expression -> expression EQEQ expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    LT              reduce using rule 26 (expression -> expression EQEQ expression .)
+    LE              reduce using rule 26 (expression -> expression EQEQ expression .)
+    GT              reduce using rule 26 (expression -> expression EQEQ expression .)
+    GE              reduce using rule 26 (expression -> expression EQEQ expression .)
+    EQEQ            reduce using rule 26 (expression -> expression EQEQ expression .)
+    NOTEQ           reduce using rule 26 (expression -> expression EQEQ expression .)
+    AND             reduce using rule 26 (expression -> expression EQEQ expression .)
+    OR              reduce using rule 26 (expression -> expression EQEQ expression .)
+    SEMI            reduce using rule 26 (expression -> expression EQEQ expression .)
+    COMMA           reduce using rule 26 (expression -> expression EQEQ expression .)
+    RPAREN          reduce using rule 26 (expression -> expression EQEQ expression .)
+    RBRACKET        reduce using rule 26 (expression -> expression EQEQ expression .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+
+  ! PLUS            [ reduce using rule 26 (expression -> expression EQEQ expression .) ]
+  ! MINUS           [ reduce using rule 26 (expression -> expression EQEQ expression .) ]
+  ! STAR            [ reduce using rule 26 (expression -> expression EQEQ expression .) ]
+  ! SLASH           [ reduce using rule 26 (expression -> expression EQEQ expression .) ]
+  ! LT              [ shift and go to state 48 ]
+  ! LE              [ shift and go to state 49 ]
+  ! GT              [ shift and go to state 50 ]
+  ! GE              [ shift and go to state 51 ]
+  ! EQEQ            [ shift and go to state 52 ]
+  ! NOTEQ           [ shift and go to state 53 ]
+  ! AND             [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+
+
+state 81
+
+    (27) expression -> expression NOTEQ expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    LT              reduce using rule 27 (expression -> expression NOTEQ expression .)
+    LE              reduce using rule 27 (expression -> expression NOTEQ expression .)
+    GT              reduce using rule 27 (expression -> expression NOTEQ expression .)
+    GE              reduce using rule 27 (expression -> expression NOTEQ expression .)
+    EQEQ            reduce using rule 27 (expression -> expression NOTEQ expression .)
+    NOTEQ           reduce using rule 27 (expression -> expression NOTEQ expression .)
+    AND             reduce using rule 27 (expression -> expression NOTEQ expression .)
+    OR              reduce using rule 27 (expression -> expression NOTEQ expression .)
+    SEMI            reduce using rule 27 (expression -> expression NOTEQ expression .)
+    COMMA           reduce using rule 27 (expression -> expression NOTEQ expression .)
+    RPAREN          reduce using rule 27 (expression -> expression NOTEQ expression .)
+    RBRACKET        reduce using rule 27 (expression -> expression NOTEQ expression .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+
+  ! PLUS            [ reduce using rule 27 (expression -> expression NOTEQ expression .) ]
+  ! MINUS           [ reduce using rule 27 (expression -> expression NOTEQ expression .) ]
+  ! STAR            [ reduce using rule 27 (expression -> expression NOTEQ expression .) ]
+  ! SLASH           [ reduce using rule 27 (expression -> expression NOTEQ expression .) ]
+  ! LT              [ shift and go to state 48 ]
+  ! LE              [ shift and go to state 49 ]
+  ! GT              [ shift and go to state 50 ]
+  ! GE              [ shift and go to state 51 ]
+  ! EQEQ            [ shift and go to state 52 ]
+  ! NOTEQ           [ shift and go to state 53 ]
+  ! AND             [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+
+
+state 82
+
+    (28) expression -> expression AND expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    AND             reduce using rule 28 (expression -> expression AND expression .)
+    OR              reduce using rule 28 (expression -> expression AND expression .)
+    SEMI            reduce using rule 28 (expression -> expression AND expression .)
+    COMMA           reduce using rule 28 (expression -> expression AND expression .)
+    RPAREN          reduce using rule 28 (expression -> expression AND expression .)
+    RBRACKET        reduce using rule 28 (expression -> expression AND expression .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+
+  ! PLUS            [ reduce using rule 28 (expression -> expression AND expression .) ]
+  ! MINUS           [ reduce using rule 28 (expression -> expression AND expression .) ]
+  ! STAR            [ reduce using rule 28 (expression -> expression AND expression .) ]
+  ! SLASH           [ reduce using rule 28 (expression -> expression AND expression .) ]
+  ! LT              [ reduce using rule 28 (expression -> expression AND expression .) ]
+  ! LE              [ reduce using rule 28 (expression -> expression AND expression .) ]
+  ! GT              [ reduce using rule 28 (expression -> expression AND expression .) ]
+  ! GE              [ reduce using rule 28 (expression -> expression AND expression .) ]
+  ! EQEQ            [ reduce using rule 28 (expression -> expression AND expression .) ]
+  ! NOTEQ           [ reduce using rule 28 (expression -> expression AND expression .) ]
+  ! AND             [ shift and go to state 54 ]
+  ! OR              [ shift and go to state 55 ]
+
+
+state 83
+
+    (29) expression -> expression OR expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    OR              reduce using rule 29 (expression -> expression OR expression .)
+    SEMI            reduce using rule 29 (expression -> expression OR expression .)
+    COMMA           reduce using rule 29 (expression -> expression OR expression .)
+    RPAREN          reduce using rule 29 (expression -> expression OR expression .)
+    RBRACKET        reduce using rule 29 (expression -> expression OR expression .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+
+  ! PLUS            [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! MINUS           [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! STAR            [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! SLASH           [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! LT              [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! LE              [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! GT              [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! GE              [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! EQEQ            [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! NOTEQ           [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! AND             [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! OR              [ shift and go to state 55 ]
+
+
+state 84
+
+    (30) expression -> LPAREN expression RPAREN .
+
+    PLUS            reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    STAR            reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    SLASH           reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    LT              reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    LE              reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    GT              reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    GE              reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    EQEQ            reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    NOTEQ           reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    AND             reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    OR              reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    SEMI            reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    COMMA           reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+    RBRACKET        reduce using rule 30 (expression -> LPAREN expression RPAREN .)
+
+
+state 85
+
+    (40) expression -> IDENT LBRACKET expression . RBRACKET
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    RBRACKET        shift and go to state 100
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+
+state 86
+
+    (41) expression -> IDENT LPAREN arglist . RPAREN
+    (44) arglist -> arglist . COMMA expression
+
+    RPAREN          shift and go to state 101
+    COMMA           shift and go to state 102
+
+
+state 87
+
+    (45) arglist -> expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    RPAREN          reduce using rule 45 (arglist -> expression .)
+    COMMA           reduce using rule 45 (arglist -> expression .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+
+state 88
+
+    (46) arglist -> empty .
+
+    RPAREN          reduce using rule 46 (arglist -> empty .)
+    COMMA           reduce using rule 46 (arglist -> empty .)
+
+
+state 89
+
+    (36) expression -> LBRACKET list_items RBRACKET .
+
+    PLUS            reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    MINUS           reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    STAR            reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    SLASH           reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    LT              reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    LE              reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    GT              reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    GE              reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    EQEQ            reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    NOTEQ           reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    AND             reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    OR              reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    SEMI            reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    COMMA           reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    RPAREN          reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+    RBRACKET        reduce using rule 36 (expression -> LBRACKET list_items RBRACKET .)
+
+
+state 90
+
+    (37) list_items -> list_items COMMA . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 103
+
+state 91
+
+    (42) expression -> STR LPAREN expression . RPAREN
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    RPAREN          shift and go to state 104
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+
+state 92
+
+    (43) expression -> INPUT LPAREN RPAREN .
+
+    PLUS            reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    MINUS           reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    STAR            reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    SLASH           reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    LT              reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    LE              reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    GT              reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    GE              reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    EQEQ            reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    NOTEQ           reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    AND             reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    OR              reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    SEMI            reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    COMMA           reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    RPAREN          reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+    RBRACKET        reduce using rule 43 (expression -> INPUT LPAREN RPAREN .)
+
+
+state 93
+
+    (6) statement -> WAX IDENT COLON IDENT EQUAL . expression SEMI
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 105
+
+state 94
+
+    (13) return_type -> IDENT .
+
+    LPAREN          reduce using rule 13 (return_type -> IDENT .)
+
+
+state 95
+
+    (17) statement -> WAX FUNCTION IDENT COLON return_type . LPAREN paramlist RPAREN LBRACE program RBRACE
+
+    LPAREN          shift and go to state 106
+
+
+state 96
+
+    (14) return_type -> VOID .
+
+    LPAREN          reduce using rule 14 (return_type -> VOID .)
+
+
+state 97
+
+    (9) statement -> IF LPAREN expression RPAREN LBRACE . program RBRACE
+    (10) statement -> IF LPAREN expression RPAREN LBRACE . program RBRACE ELSE LBRACE program RBRACE
+    (1) program -> . program statement
+    (2) program -> . statement
+    (3) program -> . empty
+    (4) statement -> . COMMENT_LINE
+    (5) statement -> . COMMENT_BLOCK
+    (6) statement -> . WAX IDENT COLON IDENT EQUAL expression SEMI
+    (7) statement -> . IDENT EQUAL expression SEMI
+    (8) statement -> . ident_list EQUAL expression_list SEMI
+    (9) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE
+    (10) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE
+    (11) statement -> . WHILE LPAREN expression RPAREN LBRACE program RBRACE
+    (12) statement -> . PRINT LPAREN expression RPAREN SEMI
+    (15) statement -> . RETURN expression_list SEMI
+    (16) statement -> . RETURN SEMI
+    (17) statement -> . WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+    (54) empty -> .
+    (49) ident_list -> . ident_list COMMA IDENT
+    (50) ident_list -> . IDENT
+
+  ! shift/reduce conflict for COMMENT_LINE resolved as shift
+  ! shift/reduce conflict for COMMENT_BLOCK resolved as shift
+  ! shift/reduce conflict for WAX resolved as shift
+  ! shift/reduce conflict for IDENT resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for RETURN resolved as shift
+    COMMENT_LINE    shift and go to state 4
+    COMMENT_BLOCK   shift and go to state 5
+    WAX             shift and go to state 6
+    IDENT           shift and go to state 7
+    IF              shift and go to state 9
+    WHILE           shift and go to state 10
+    PRINT           shift and go to state 11
+    RETURN          shift and go to state 12
+    RBRACE          reduce using rule 54 (empty -> .)
+
+  ! COMMENT_LINE    [ reduce using rule 54 (empty -> .) ]
+  ! COMMENT_BLOCK   [ reduce using rule 54 (empty -> .) ]
+  ! WAX             [ reduce using rule 54 (empty -> .) ]
+  ! IDENT           [ reduce using rule 54 (empty -> .) ]
+  ! IF              [ reduce using rule 54 (empty -> .) ]
+  ! WHILE           [ reduce using rule 54 (empty -> .) ]
+  ! PRINT           [ reduce using rule 54 (empty -> .) ]
+  ! RETURN          [ reduce using rule 54 (empty -> .) ]
+
+    program                        shift and go to state 107
+    statement                      shift and go to state 2
+    empty                          shift and go to state 3
+    ident_list                     shift and go to state 8
+
+state 98
+
+    (11) statement -> WHILE LPAREN expression RPAREN LBRACE . program RBRACE
+    (1) program -> . program statement
+    (2) program -> . statement
+    (3) program -> . empty
+    (4) statement -> . COMMENT_LINE
+    (5) statement -> . COMMENT_BLOCK
+    (6) statement -> . WAX IDENT COLON IDENT EQUAL expression SEMI
+    (7) statement -> . IDENT EQUAL expression SEMI
+    (8) statement -> . ident_list EQUAL expression_list SEMI
+    (9) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE
+    (10) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE
+    (11) statement -> . WHILE LPAREN expression RPAREN LBRACE program RBRACE
+    (12) statement -> . PRINT LPAREN expression RPAREN SEMI
+    (15) statement -> . RETURN expression_list SEMI
+    (16) statement -> . RETURN SEMI
+    (17) statement -> . WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+    (54) empty -> .
+    (49) ident_list -> . ident_list COMMA IDENT
+    (50) ident_list -> . IDENT
+
+  ! shift/reduce conflict for COMMENT_LINE resolved as shift
+  ! shift/reduce conflict for COMMENT_BLOCK resolved as shift
+  ! shift/reduce conflict for WAX resolved as shift
+  ! shift/reduce conflict for IDENT resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for RETURN resolved as shift
+    COMMENT_LINE    shift and go to state 4
+    COMMENT_BLOCK   shift and go to state 5
+    WAX             shift and go to state 6
+    IDENT           shift and go to state 7
+    IF              shift and go to state 9
+    WHILE           shift and go to state 10
+    PRINT           shift and go to state 11
+    RETURN          shift and go to state 12
+    RBRACE          reduce using rule 54 (empty -> .)
+
+  ! COMMENT_LINE    [ reduce using rule 54 (empty -> .) ]
+  ! COMMENT_BLOCK   [ reduce using rule 54 (empty -> .) ]
+  ! WAX             [ reduce using rule 54 (empty -> .) ]
+  ! IDENT           [ reduce using rule 54 (empty -> .) ]
+  ! IF              [ reduce using rule 54 (empty -> .) ]
+  ! WHILE           [ reduce using rule 54 (empty -> .) ]
+  ! PRINT           [ reduce using rule 54 (empty -> .) ]
+  ! RETURN          [ reduce using rule 54 (empty -> .) ]
+
+    program                        shift and go to state 108
+    statement                      shift and go to state 2
+    empty                          shift and go to state 3
+    ident_list                     shift and go to state 8
+
+state 99
+
+    (12) statement -> PRINT LPAREN expression RPAREN SEMI .
+
+    COMMENT_LINE    reduce using rule 12 (statement -> PRINT LPAREN expression RPAREN SEMI .)
+    COMMENT_BLOCK   reduce using rule 12 (statement -> PRINT LPAREN expression RPAREN SEMI .)
+    WAX             reduce using rule 12 (statement -> PRINT LPAREN expression RPAREN SEMI .)
+    IDENT           reduce using rule 12 (statement -> PRINT LPAREN expression RPAREN SEMI .)
+    IF              reduce using rule 12 (statement -> PRINT LPAREN expression RPAREN SEMI .)
+    WHILE           reduce using rule 12 (statement -> PRINT LPAREN expression RPAREN SEMI .)
+    PRINT           reduce using rule 12 (statement -> PRINT LPAREN expression RPAREN SEMI .)
+    RETURN          reduce using rule 12 (statement -> PRINT LPAREN expression RPAREN SEMI .)
+    $end            reduce using rule 12 (statement -> PRINT LPAREN expression RPAREN SEMI .)
+    RBRACE          reduce using rule 12 (statement -> PRINT LPAREN expression RPAREN SEMI .)
+
+
+state 100
+
+    (40) expression -> IDENT LBRACKET expression RBRACKET .
+
+    PLUS            reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    MINUS           reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    STAR            reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    SLASH           reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    LT              reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    LE              reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    GT              reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    GE              reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    EQEQ            reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    NOTEQ           reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    AND             reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    OR              reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    SEMI            reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    COMMA           reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    RPAREN          reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+    RBRACKET        reduce using rule 40 (expression -> IDENT LBRACKET expression RBRACKET .)
+
+
+state 101
+
+    (41) expression -> IDENT LPAREN arglist RPAREN .
+
+    PLUS            reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    MINUS           reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    STAR            reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    SLASH           reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    LT              reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    LE              reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    GT              reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    GE              reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    EQEQ            reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    NOTEQ           reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    AND             reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    OR              reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    SEMI            reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    COMMA           reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    RPAREN          reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+    RBRACKET        reduce using rule 41 (expression -> IDENT LPAREN arglist RPAREN .)
+
+
+state 102
+
+    (44) arglist -> arglist COMMA . expression
+    (18) expression -> . expression PLUS expression
+    (19) expression -> . expression MINUS expression
+    (20) expression -> . expression STAR expression
+    (21) expression -> . expression SLASH expression
+    (22) expression -> . expression LT expression
+    (23) expression -> . expression LE expression
+    (24) expression -> . expression GT expression
+    (25) expression -> . expression GE expression
+    (26) expression -> . expression EQEQ expression
+    (27) expression -> . expression NOTEQ expression
+    (28) expression -> . expression AND expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . LPAREN expression RPAREN
+    (31) expression -> . INT
+    (32) expression -> . DOUBLE
+    (33) expression -> . STRING
+    (34) expression -> . BOOL
+    (35) expression -> . IDENT
+    (36) expression -> . LBRACKET list_items RBRACKET
+    (40) expression -> . IDENT LBRACKET expression RBRACKET
+    (41) expression -> . IDENT LPAREN arglist RPAREN
+    (42) expression -> . STR LPAREN expression RPAREN
+    (43) expression -> . INPUT LPAREN RPAREN
+
+    LPAREN          shift and go to state 25
+    INT             shift and go to state 26
+    DOUBLE          shift and go to state 27
+    STRING          shift and go to state 28
+    BOOL            shift and go to state 29
+    IDENT           shift and go to state 30
+    LBRACKET        shift and go to state 31
+    STR             shift and go to state 32
+    INPUT           shift and go to state 33
+
+    expression                     shift and go to state 109
+
+state 103
+
+    (37) list_items -> list_items COMMA expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    RBRACKET        reduce using rule 37 (list_items -> list_items COMMA expression .)
+    COMMA           reduce using rule 37 (list_items -> list_items COMMA expression .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+
+state 104
+
+    (42) expression -> STR LPAREN expression RPAREN .
+
+    PLUS            reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    MINUS           reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    STAR            reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    SLASH           reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    LT              reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    LE              reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    GT              reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    GE              reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    EQEQ            reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    NOTEQ           reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    AND             reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    OR              reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    SEMI            reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    COMMA           reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+    RBRACKET        reduce using rule 42 (expression -> STR LPAREN expression RPAREN .)
+
+
+state 105
+
+    (6) statement -> WAX IDENT COLON IDENT EQUAL expression . SEMI
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    SEMI            shift and go to state 110
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+
+state 106
+
+    (17) statement -> WAX FUNCTION IDENT COLON return_type LPAREN . paramlist RPAREN LBRACE program RBRACE
+    (51) paramlist -> . paramlist COMMA IDENT COLON IDENT
+    (52) paramlist -> . IDENT COLON IDENT
+    (53) paramlist -> . empty
+    (54) empty -> .
+
+    IDENT           shift and go to state 111
+    RPAREN          reduce using rule 54 (empty -> .)
+    COMMA           reduce using rule 54 (empty -> .)
+
+    paramlist                      shift and go to state 112
+    empty                          shift and go to state 113
+
+state 107
+
+    (9) statement -> IF LPAREN expression RPAREN LBRACE program . RBRACE
+    (10) statement -> IF LPAREN expression RPAREN LBRACE program . RBRACE ELSE LBRACE program RBRACE
+    (1) program -> program . statement
+    (4) statement -> . COMMENT_LINE
+    (5) statement -> . COMMENT_BLOCK
+    (6) statement -> . WAX IDENT COLON IDENT EQUAL expression SEMI
+    (7) statement -> . IDENT EQUAL expression SEMI
+    (8) statement -> . ident_list EQUAL expression_list SEMI
+    (9) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE
+    (10) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE
+    (11) statement -> . WHILE LPAREN expression RPAREN LBRACE program RBRACE
+    (12) statement -> . PRINT LPAREN expression RPAREN SEMI
+    (15) statement -> . RETURN expression_list SEMI
+    (16) statement -> . RETURN SEMI
+    (17) statement -> . WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+    (49) ident_list -> . ident_list COMMA IDENT
+    (50) ident_list -> . IDENT
+
+    RBRACE          shift and go to state 114
+    COMMENT_LINE    shift and go to state 4
+    COMMENT_BLOCK   shift and go to state 5
+    WAX             shift and go to state 6
+    IDENT           shift and go to state 7
+    IF              shift and go to state 9
+    WHILE           shift and go to state 10
+    PRINT           shift and go to state 11
+    RETURN          shift and go to state 12
+
+    statement                      shift and go to state 13
+    ident_list                     shift and go to state 8
+
+state 108
+
+    (11) statement -> WHILE LPAREN expression RPAREN LBRACE program . RBRACE
+    (1) program -> program . statement
+    (4) statement -> . COMMENT_LINE
+    (5) statement -> . COMMENT_BLOCK
+    (6) statement -> . WAX IDENT COLON IDENT EQUAL expression SEMI
+    (7) statement -> . IDENT EQUAL expression SEMI
+    (8) statement -> . ident_list EQUAL expression_list SEMI
+    (9) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE
+    (10) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE
+    (11) statement -> . WHILE LPAREN expression RPAREN LBRACE program RBRACE
+    (12) statement -> . PRINT LPAREN expression RPAREN SEMI
+    (15) statement -> . RETURN expression_list SEMI
+    (16) statement -> . RETURN SEMI
+    (17) statement -> . WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+    (49) ident_list -> . ident_list COMMA IDENT
+    (50) ident_list -> . IDENT
+
+    RBRACE          shift and go to state 115
+    COMMENT_LINE    shift and go to state 4
+    COMMENT_BLOCK   shift and go to state 5
+    WAX             shift and go to state 6
+    IDENT           shift and go to state 7
+    IF              shift and go to state 9
+    WHILE           shift and go to state 10
+    PRINT           shift and go to state 11
+    RETURN          shift and go to state 12
+
+    statement                      shift and go to state 13
+    ident_list                     shift and go to state 8
+
+state 109
+
+    (44) arglist -> arglist COMMA expression .
+    (18) expression -> expression . PLUS expression
+    (19) expression -> expression . MINUS expression
+    (20) expression -> expression . STAR expression
+    (21) expression -> expression . SLASH expression
+    (22) expression -> expression . LT expression
+    (23) expression -> expression . LE expression
+    (24) expression -> expression . GT expression
+    (25) expression -> expression . GE expression
+    (26) expression -> expression . EQEQ expression
+    (27) expression -> expression . NOTEQ expression
+    (28) expression -> expression . AND expression
+    (29) expression -> expression . OR expression
+
+    RPAREN          reduce using rule 44 (arglist -> arglist COMMA expression .)
+    COMMA           reduce using rule 44 (arglist -> arglist COMMA expression .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    STAR            shift and go to state 46
+    SLASH           shift and go to state 47
+    LT              shift and go to state 48
+    LE              shift and go to state 49
+    GT              shift and go to state 50
+    GE              shift and go to state 51
+    EQEQ            shift and go to state 52
+    NOTEQ           shift and go to state 53
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+
+state 110
+
+    (6) statement -> WAX IDENT COLON IDENT EQUAL expression SEMI .
+
+    COMMENT_LINE    reduce using rule 6 (statement -> WAX IDENT COLON IDENT EQUAL expression SEMI .)
+    COMMENT_BLOCK   reduce using rule 6 (statement -> WAX IDENT COLON IDENT EQUAL expression SEMI .)
+    WAX             reduce using rule 6 (statement -> WAX IDENT COLON IDENT EQUAL expression SEMI .)
+    IDENT           reduce using rule 6 (statement -> WAX IDENT COLON IDENT EQUAL expression SEMI .)
+    IF              reduce using rule 6 (statement -> WAX IDENT COLON IDENT EQUAL expression SEMI .)
+    WHILE           reduce using rule 6 (statement -> WAX IDENT COLON IDENT EQUAL expression SEMI .)
+    PRINT           reduce using rule 6 (statement -> WAX IDENT COLON IDENT EQUAL expression SEMI .)
+    RETURN          reduce using rule 6 (statement -> WAX IDENT COLON IDENT EQUAL expression SEMI .)
+    $end            reduce using rule 6 (statement -> WAX IDENT COLON IDENT EQUAL expression SEMI .)
+    RBRACE          reduce using rule 6 (statement -> WAX IDENT COLON IDENT EQUAL expression SEMI .)
+
+
+state 111
+
+    (52) paramlist -> IDENT . COLON IDENT
+
+    COLON           shift and go to state 116
+
+
+state 112
+
+    (17) statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist . RPAREN LBRACE program RBRACE
+    (51) paramlist -> paramlist . COMMA IDENT COLON IDENT
+
+    RPAREN          shift and go to state 117
+    COMMA           shift and go to state 118
+
+
+state 113
+
+    (53) paramlist -> empty .
+
+    RPAREN          reduce using rule 53 (paramlist -> empty .)
+    COMMA           reduce using rule 53 (paramlist -> empty .)
+
+
+state 114
+
+    (9) statement -> IF LPAREN expression RPAREN LBRACE program RBRACE .
+    (10) statement -> IF LPAREN expression RPAREN LBRACE program RBRACE . ELSE LBRACE program RBRACE
+
+    COMMENT_LINE    reduce using rule 9 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE .)
+    COMMENT_BLOCK   reduce using rule 9 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE .)
+    WAX             reduce using rule 9 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE .)
+    IDENT           reduce using rule 9 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE .)
+    IF              reduce using rule 9 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE .)
+    WHILE           reduce using rule 9 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE .)
+    PRINT           reduce using rule 9 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE .)
+    RETURN          reduce using rule 9 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE .)
+    $end            reduce using rule 9 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE .)
+    RBRACE          reduce using rule 9 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE .)
+    ELSE            shift and go to state 119
+
+
+state 115
+
+    (11) statement -> WHILE LPAREN expression RPAREN LBRACE program RBRACE .
+
+    COMMENT_LINE    reduce using rule 11 (statement -> WHILE LPAREN expression RPAREN LBRACE program RBRACE .)
+    COMMENT_BLOCK   reduce using rule 11 (statement -> WHILE LPAREN expression RPAREN LBRACE program RBRACE .)
+    WAX             reduce using rule 11 (statement -> WHILE LPAREN expression RPAREN LBRACE program RBRACE .)
+    IDENT           reduce using rule 11 (statement -> WHILE LPAREN expression RPAREN LBRACE program RBRACE .)
+    IF              reduce using rule 11 (statement -> WHILE LPAREN expression RPAREN LBRACE program RBRACE .)
+    WHILE           reduce using rule 11 (statement -> WHILE LPAREN expression RPAREN LBRACE program RBRACE .)
+    PRINT           reduce using rule 11 (statement -> WHILE LPAREN expression RPAREN LBRACE program RBRACE .)
+    RETURN          reduce using rule 11 (statement -> WHILE LPAREN expression RPAREN LBRACE program RBRACE .)
+    $end            reduce using rule 11 (statement -> WHILE LPAREN expression RPAREN LBRACE program RBRACE .)
+    RBRACE          reduce using rule 11 (statement -> WHILE LPAREN expression RPAREN LBRACE program RBRACE .)
+
+
+state 116
+
+    (52) paramlist -> IDENT COLON . IDENT
+
+    IDENT           shift and go to state 120
+
+
+state 117
+
+    (17) statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN . LBRACE program RBRACE
+
+    LBRACE          shift and go to state 121
+
+
+state 118
+
+    (51) paramlist -> paramlist COMMA . IDENT COLON IDENT
+
+    IDENT           shift and go to state 122
+
+
+state 119
+
+    (10) statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE . LBRACE program RBRACE
+
+    LBRACE          shift and go to state 123
+
+
+state 120
+
+    (52) paramlist -> IDENT COLON IDENT .
+
+    RPAREN          reduce using rule 52 (paramlist -> IDENT COLON IDENT .)
+    COMMA           reduce using rule 52 (paramlist -> IDENT COLON IDENT .)
+
+
+state 121
+
+    (17) statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE . program RBRACE
+    (1) program -> . program statement
+    (2) program -> . statement
+    (3) program -> . empty
+    (4) statement -> . COMMENT_LINE
+    (5) statement -> . COMMENT_BLOCK
+    (6) statement -> . WAX IDENT COLON IDENT EQUAL expression SEMI
+    (7) statement -> . IDENT EQUAL expression SEMI
+    (8) statement -> . ident_list EQUAL expression_list SEMI
+    (9) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE
+    (10) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE
+    (11) statement -> . WHILE LPAREN expression RPAREN LBRACE program RBRACE
+    (12) statement -> . PRINT LPAREN expression RPAREN SEMI
+    (15) statement -> . RETURN expression_list SEMI
+    (16) statement -> . RETURN SEMI
+    (17) statement -> . WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+    (54) empty -> .
+    (49) ident_list -> . ident_list COMMA IDENT
+    (50) ident_list -> . IDENT
+
+  ! shift/reduce conflict for COMMENT_LINE resolved as shift
+  ! shift/reduce conflict for COMMENT_BLOCK resolved as shift
+  ! shift/reduce conflict for WAX resolved as shift
+  ! shift/reduce conflict for IDENT resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for RETURN resolved as shift
+    COMMENT_LINE    shift and go to state 4
+    COMMENT_BLOCK   shift and go to state 5
+    WAX             shift and go to state 6
+    IDENT           shift and go to state 7
+    IF              shift and go to state 9
+    WHILE           shift and go to state 10
+    PRINT           shift and go to state 11
+    RETURN          shift and go to state 12
+    RBRACE          reduce using rule 54 (empty -> .)
+
+  ! COMMENT_LINE    [ reduce using rule 54 (empty -> .) ]
+  ! COMMENT_BLOCK   [ reduce using rule 54 (empty -> .) ]
+  ! WAX             [ reduce using rule 54 (empty -> .) ]
+  ! IDENT           [ reduce using rule 54 (empty -> .) ]
+  ! IF              [ reduce using rule 54 (empty -> .) ]
+  ! WHILE           [ reduce using rule 54 (empty -> .) ]
+  ! PRINT           [ reduce using rule 54 (empty -> .) ]
+  ! RETURN          [ reduce using rule 54 (empty -> .) ]
+
+    program                        shift and go to state 124
+    statement                      shift and go to state 2
+    empty                          shift and go to state 3
+    ident_list                     shift and go to state 8
+
+state 122
+
+    (51) paramlist -> paramlist COMMA IDENT . COLON IDENT
+
+    COLON           shift and go to state 125
+
+
+state 123
+
+    (10) statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE . program RBRACE
+    (1) program -> . program statement
+    (2) program -> . statement
+    (3) program -> . empty
+    (4) statement -> . COMMENT_LINE
+    (5) statement -> . COMMENT_BLOCK
+    (6) statement -> . WAX IDENT COLON IDENT EQUAL expression SEMI
+    (7) statement -> . IDENT EQUAL expression SEMI
+    (8) statement -> . ident_list EQUAL expression_list SEMI
+    (9) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE
+    (10) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE
+    (11) statement -> . WHILE LPAREN expression RPAREN LBRACE program RBRACE
+    (12) statement -> . PRINT LPAREN expression RPAREN SEMI
+    (15) statement -> . RETURN expression_list SEMI
+    (16) statement -> . RETURN SEMI
+    (17) statement -> . WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+    (54) empty -> .
+    (49) ident_list -> . ident_list COMMA IDENT
+    (50) ident_list -> . IDENT
+
+  ! shift/reduce conflict for COMMENT_LINE resolved as shift
+  ! shift/reduce conflict for COMMENT_BLOCK resolved as shift
+  ! shift/reduce conflict for WAX resolved as shift
+  ! shift/reduce conflict for IDENT resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for RETURN resolved as shift
+    COMMENT_LINE    shift and go to state 4
+    COMMENT_BLOCK   shift and go to state 5
+    WAX             shift and go to state 6
+    IDENT           shift and go to state 7
+    IF              shift and go to state 9
+    WHILE           shift and go to state 10
+    PRINT           shift and go to state 11
+    RETURN          shift and go to state 12
+    RBRACE          reduce using rule 54 (empty -> .)
+
+  ! COMMENT_LINE    [ reduce using rule 54 (empty -> .) ]
+  ! COMMENT_BLOCK   [ reduce using rule 54 (empty -> .) ]
+  ! WAX             [ reduce using rule 54 (empty -> .) ]
+  ! IDENT           [ reduce using rule 54 (empty -> .) ]
+  ! IF              [ reduce using rule 54 (empty -> .) ]
+  ! WHILE           [ reduce using rule 54 (empty -> .) ]
+  ! PRINT           [ reduce using rule 54 (empty -> .) ]
+  ! RETURN          [ reduce using rule 54 (empty -> .) ]
+
+    program                        shift and go to state 126
+    statement                      shift and go to state 2
+    empty                          shift and go to state 3
+    ident_list                     shift and go to state 8
+
+state 124
+
+    (17) statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program . RBRACE
+    (1) program -> program . statement
+    (4) statement -> . COMMENT_LINE
+    (5) statement -> . COMMENT_BLOCK
+    (6) statement -> . WAX IDENT COLON IDENT EQUAL expression SEMI
+    (7) statement -> . IDENT EQUAL expression SEMI
+    (8) statement -> . ident_list EQUAL expression_list SEMI
+    (9) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE
+    (10) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE
+    (11) statement -> . WHILE LPAREN expression RPAREN LBRACE program RBRACE
+    (12) statement -> . PRINT LPAREN expression RPAREN SEMI
+    (15) statement -> . RETURN expression_list SEMI
+    (16) statement -> . RETURN SEMI
+    (17) statement -> . WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+    (49) ident_list -> . ident_list COMMA IDENT
+    (50) ident_list -> . IDENT
+
+    RBRACE          shift and go to state 127
+    COMMENT_LINE    shift and go to state 4
+    COMMENT_BLOCK   shift and go to state 5
+    WAX             shift and go to state 6
+    IDENT           shift and go to state 7
+    IF              shift and go to state 9
+    WHILE           shift and go to state 10
+    PRINT           shift and go to state 11
+    RETURN          shift and go to state 12
+
+    statement                      shift and go to state 13
+    ident_list                     shift and go to state 8
+
+state 125
+
+    (51) paramlist -> paramlist COMMA IDENT COLON . IDENT
+
+    IDENT           shift and go to state 128
+
+
+state 126
+
+    (10) statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program . RBRACE
+    (1) program -> program . statement
+    (4) statement -> . COMMENT_LINE
+    (5) statement -> . COMMENT_BLOCK
+    (6) statement -> . WAX IDENT COLON IDENT EQUAL expression SEMI
+    (7) statement -> . IDENT EQUAL expression SEMI
+    (8) statement -> . ident_list EQUAL expression_list SEMI
+    (9) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE
+    (10) statement -> . IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE
+    (11) statement -> . WHILE LPAREN expression RPAREN LBRACE program RBRACE
+    (12) statement -> . PRINT LPAREN expression RPAREN SEMI
+    (15) statement -> . RETURN expression_list SEMI
+    (16) statement -> . RETURN SEMI
+    (17) statement -> . WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE
+    (49) ident_list -> . ident_list COMMA IDENT
+    (50) ident_list -> . IDENT
+
+    RBRACE          shift and go to state 129
+    COMMENT_LINE    shift and go to state 4
+    COMMENT_BLOCK   shift and go to state 5
+    WAX             shift and go to state 6
+    IDENT           shift and go to state 7
+    IF              shift and go to state 9
+    WHILE           shift and go to state 10
+    PRINT           shift and go to state 11
+    RETURN          shift and go to state 12
+
+    statement                      shift and go to state 13
+    ident_list                     shift and go to state 8
+
+state 127
+
+    (17) statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE .
+
+    COMMENT_LINE    reduce using rule 17 (statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE .)
+    COMMENT_BLOCK   reduce using rule 17 (statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE .)
+    WAX             reduce using rule 17 (statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE .)
+    IDENT           reduce using rule 17 (statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE .)
+    IF              reduce using rule 17 (statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE .)
+    WHILE           reduce using rule 17 (statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE .)
+    PRINT           reduce using rule 17 (statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE .)
+    RETURN          reduce using rule 17 (statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE .)
+    $end            reduce using rule 17 (statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE .)
+    RBRACE          reduce using rule 17 (statement -> WAX FUNCTION IDENT COLON return_type LPAREN paramlist RPAREN LBRACE program RBRACE .)
+
+
+state 128
+
+    (51) paramlist -> paramlist COMMA IDENT COLON IDENT .
+
+    RPAREN          reduce using rule 51 (paramlist -> paramlist COMMA IDENT COLON IDENT .)
+    COMMA           reduce using rule 51 (paramlist -> paramlist COMMA IDENT COLON IDENT .)
+
+
+state 129
+
+    (10) statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE .
+
+    COMMENT_LINE    reduce using rule 10 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE .)
+    COMMENT_BLOCK   reduce using rule 10 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE .)
+    WAX             reduce using rule 10 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE .)
+    IDENT           reduce using rule 10 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE .)
+    IF              reduce using rule 10 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE .)
+    WHILE           reduce using rule 10 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE .)
+    PRINT           reduce using rule 10 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE .)
+    RETURN          reduce using rule 10 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE .)
+    $end            reduce using rule 10 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE .)
+    RBRACE          reduce using rule 10 (statement -> IF LPAREN expression RPAREN LBRACE program RBRACE ELSE LBRACE program RBRACE .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for COMMENT_LINE in state 0 resolved as shift
+WARNING: shift/reduce conflict for COMMENT_BLOCK in state 0 resolved as shift
+WARNING: shift/reduce conflict for WAX in state 0 resolved as shift
+WARNING: shift/reduce conflict for IDENT in state 0 resolved as shift
+WARNING: shift/reduce conflict for IF in state 0 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 0 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 0 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 0 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 7 resolved as shift
+WARNING: shift/reduce conflict for COMMENT_LINE in state 97 resolved as shift
+WARNING: shift/reduce conflict for COMMENT_BLOCK in state 97 resolved as shift
+WARNING: shift/reduce conflict for WAX in state 97 resolved as shift
+WARNING: shift/reduce conflict for IDENT in state 97 resolved as shift
+WARNING: shift/reduce conflict for IF in state 97 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 97 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 97 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 97 resolved as shift
+WARNING: shift/reduce conflict for COMMENT_LINE in state 98 resolved as shift
+WARNING: shift/reduce conflict for COMMENT_BLOCK in state 98 resolved as shift
+WARNING: shift/reduce conflict for WAX in state 98 resolved as shift
+WARNING: shift/reduce conflict for IDENT in state 98 resolved as shift
+WARNING: shift/reduce conflict for IF in state 98 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 98 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 98 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 98 resolved as shift
+WARNING: shift/reduce conflict for COMMENT_LINE in state 121 resolved as shift
+WARNING: shift/reduce conflict for COMMENT_BLOCK in state 121 resolved as shift
+WARNING: shift/reduce conflict for WAX in state 121 resolved as shift
+WARNING: shift/reduce conflict for IDENT in state 121 resolved as shift
+WARNING: shift/reduce conflict for IF in state 121 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 121 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 121 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 121 resolved as shift
+WARNING: shift/reduce conflict for COMMENT_LINE in state 123 resolved as shift
+WARNING: shift/reduce conflict for COMMENT_BLOCK in state 123 resolved as shift
+WARNING: shift/reduce conflict for WAX in state 123 resolved as shift
+WARNING: shift/reduce conflict for IDENT in state 123 resolved as shift
+WARNING: shift/reduce conflict for IF in state 123 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 123 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 123 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 123 resolved as shift
