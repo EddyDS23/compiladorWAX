@@ -17,6 +17,7 @@ wax rechazados:int = 0;
 wax rechazos_edad:int = 0;
 wax rechazos_ingreso:int = 0;
 wax rechazos_promedio:int = 0;
+wax dividiendo:int=0;
 
 # --- DATOS DE ALUMNOS (organizados en listas) ---
 wax numero_alumnos:int = 5;
@@ -40,6 +41,7 @@ wax califs_alumno:list = [];
 print("--- Iniciando Proceso de Evaluacion ---");
 
 while (i < numero_alumnos) {
+    
     # Obtenemos las calificaciones del alumno actual
     califs_alumno = calificaciones[i];
     # Calculamos su promedio
@@ -84,3 +86,7 @@ print("Por edad: " + str(rechazos_edad));
 print("Por ingreso: " + str(rechazos_ingreso));
 print("Por promedio: " + str(rechazos_promedio));
 print("---------------------------------");
+
+# --- Pruebas ---
+
+

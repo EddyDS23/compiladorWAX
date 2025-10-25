@@ -3,7 +3,8 @@
 # Este archivo DEPENDE de 'lexer.py' para la lista de tokens.
 
 import ply.yacc as yacc
-from lexer import tokens
+from lexer import tokens,lexer
+import sys
 
 # ==============================
 # SINTÁCTICO (AST)
@@ -201,9 +202,31 @@ def p_empty(p):
 # ---------- ERRORES ----------
 def p_error(p):
     if p:
-        print(f"[Error Sintáctico] Token inesperado {p.type} ('{p.value}') en línea {p.lineno}")
+        # Error estándar: un token inesperado
+        print(f"[Error Sintáctico] Token inesperado {p.type} ('{p.value}') en línea {p.lineno}",file=sys.stderr)
     else:
-        print("[Error Sintáctico] Fin inesperado de la entrada")
+        # Error de "Fin inesperado de la entrada" (EOF)
+        print(f"[Error Sintáctico] Fin inesperado de la entrada.",file=sys.stderr)
+        
+        # --- INICIO DE LA MAGIA ---
+        # Accedemos a la pila interna del parser
+        stack = parser.symstack
+        
+        # Buscamos de arriba hacia abajo (reversed) en la pila
+        # por el último token de apertura que no se cerró.
+        for sym in reversed(stack):
+            # 'sym' puede ser un No-Terminal (sin 'type') o un Token (con 'type')
+            if hasattr(sym, 'type'):
+                if sym.type == 'LBRACE': # '{'
+                    print(f"    > Sugerencia: Revisa si falta un '}}' (llave de cierre) para el bloque que comenzó en la línea {sym.lineno}.",file=sys.stderr)
+                    return
+                if sym.type == 'LPAREN': # '('
+                    print(f"    > Sugerencia: Revisa si falta un ')' (paréntesis de cierre) para la expresión que comenzó en la línea {sym.lineno}.",file=sys.stderr)
+                    return
+        # --- FIN DE LA MAGIA ---
+
+        # Si no encontramos un token específico, damos la sugerencia genérica
+        print(f"    > Sugerencia: Revisa si falta un '}}' o ';' en algún lugar.",file=sys.stderr)
 
 # Construye el parser
 parser = yacc.yacc()
