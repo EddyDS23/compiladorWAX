@@ -23,6 +23,105 @@ from PySide6.QtCore import Qt, QSize, QRect
 from PySide6.QtGui import QFont, QPainter, QColor, QTextFormat
 
 # ===============================================
+#               PROGRAMA.WAX
+# ===============================================
+
+DEFAULT_WAX_CODE="""
+# ==========================================================
+#         Programa de Evaluación de Becas v3.0 (con bucle)
+# ==========================================================
+
+# La función devuelve un "código de razón" en lugar de múltiples valores.
+# Si devuelve "", el alumno es aceptado.
+wax function evaluarAlumno : string(edad:int, ingreso:int, promedio:int) {
+    if (edad < 18 || edad > 25) { return "edad"; }
+    if (ingreso >= 5000) { return "ingreso"; }
+    if (promedio < 90) { return "promedio"; }
+    return "";
+}
+
+# --- CONTADORES ---
+wax aceptados:int = 0;
+wax rechazados:int = 0;
+wax rechazos_edad:int = 0;
+wax rechazos_ingreso:int = 0;
+wax rechazos_promedio:int = 0;
+wax dividiendo:int=0;
+
+# --- DATOS DE ALUMNOS (organizados en listas) ---
+wax numero_alumnos:int = 5;
+wax edades:list = [20, 17, 23, 26, 22];
+wax ingresos:list = [4000, 3000, 6000, 2000, 4500];
+# Usamos una lista de listas para las calificaciones
+wax calificaciones:list = [
+    [95, 92, 90],  # Alumno 1 
+    [88, 90, 85],  # Alumno 2
+    [92, 91, 93],  # Alumno 3
+    [97, 96, 98],  # Alumno 4
+    [80, 85, 88]  # Alumno 5
+];
+
+# --- PROCESO DE EVALUACIÓN AUTOMATIZADO ---
+wax i:int = 0; # Nuestro contador para el bucle
+wax promedio:int = 0;
+wax codigo_rechazo:string = "";
+wax califs_alumno:list = [];
+
+print("--- Iniciando Proceso de Evaluacion ---");
+
+while (i < numero_alumnos) {
+    
+    # Obtenemos las calificaciones del alumno actual
+    califs_alumno = calificaciones[i];
+    # Calculamos su promedio
+    promedio = (califs_alumno[0] + califs_alumno[1] + califs_alumno[2]) / 3;
+
+    # Llamamos a la función con los datos del alumno i
+    codigo_rechazo = evaluarAlumno(edades[i], ingresos[i], promedio);
+    
+    # El bloque de lógica es el mismo, pero ahora se repite para cada i
+    if (codigo_rechazo == "") {
+        aceptados = aceptados + 1;
+        print("Alumno " + str(i+1) + ": Aceptado");
+    } else {
+        rechazados = rechazados + 1;
+        
+        
+        if (codigo_rechazo == "edad") {
+            rechazos_edad = rechazos_edad + 1;
+        }
+
+        if (codigo_rechazo == "ingreso") {
+            rechazos_ingreso = rechazos_ingreso + 1;
+        }
+
+        if (codigo_rechazo == "promedio") {
+            rechazos_promedio = rechazos_promedio + 1;
+        }
+        print("Alumno " + str(i+1) + ": Rechazado por " + codigo_rechazo);
+    }
+
+    # Incrementamos el contador para evitar un bucle infinito
+    i = i + 1;
+}
+
+# --- RESULTADOS FINALES ---
+print("---------------------------------");
+print("--- Resultados de la Evaluacion ---");
+print("Total de alumnos aceptados: " + str(aceptados));
+print("Total de alumnos rechazados: " + str(rechazados));
+print("--- Desglose de Rechazos ---");
+print("Por edad: " + str(rechazos_edad));
+print("Por ingreso: " + str(rechazos_ingreso));
+print("Por promedio: " + str(rechazos_promedio));
+print("---------------------------------");
+
+# --- Pruebas ---
+
+"""
+
+
+# ===============================================
 # CLASE 1: EL WIDGET DE NÚMEROS DE LÍNEA
 # (Esto dibuja la barra lateral)
 # ===============================================
@@ -152,12 +251,9 @@ class CompilerApp(QMainWindow):
         controls_layout.addStretch()
 
         # 2. Editor de Código (Izquierda)
-        # --- ¡CAMBIO CLAVE! ---
-        # Ya no usamos QTextEdit, usamos nuestro widget personalizado
         self.code_input = CodeEditor()
-        # --- FIN DEL CAMBIO ---
         self.code_input.setFont(font)
-        # (Ya no necesitamos configurar márgenes, CodeEditor lo hace)
+        self.code_input.setPlainText(DEFAULT_WAX_CODE)
 
         # 3. Panel de Salida (Derecha) - Sigue usando QTextEdit
         self.output_tabs = QTabWidget()
