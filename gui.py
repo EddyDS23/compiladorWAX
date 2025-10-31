@@ -1,5 +1,5 @@
 # gui.py
-# Interfaz gráfica del compilador WAX (Versión con números de línea nativos)
+# Interfaz gráfica del compilador WAX (Versión con números de línea nativos y input interactivo)
 
 import sys
 import io
@@ -17,7 +17,7 @@ from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget,
     QHBoxLayout, QVBoxLayout, QTextEdit,
     QPushButton, QCheckBox, QTabWidget,
-    QSplitter, QPlainTextEdit
+    QSplitter, QPlainTextEdit, QInputDialog
 )
 from PySide6.QtCore import Qt, QSize, QRect
 from PySide6.QtGui import QFont, QPainter, QColor, QTextFormat
@@ -46,7 +46,6 @@ wax rechazados:int = 0;
 wax rechazos_edad:int = 0;
 wax rechazos_ingreso:int = 0;
 wax rechazos_promedio:int = 0;
-wax dividiendo:int=0;
 
 # --- DATOS DE ALUMNOS (organizados en listas) ---
 wax numero_alumnos:int = 5;
@@ -58,7 +57,7 @@ wax calificaciones:list = [
     [88, 90, 85],  # Alumno 2
     [92, 91, 93],  # Alumno 3
     [97, 96, 98],  # Alumno 4
-    [80, 85, 88]  # Alumno 5
+    [80, 85, 88]   # Alumno 5
 ];
 
 # --- PROCESO DE EVALUACIÓN AUTOMATIZADO ---
@@ -116,7 +115,9 @@ print("Por ingreso: " + str(rechazos_ingreso));
 print("Por promedio: " + str(rechazos_promedio));
 print("---------------------------------");
 
-# --- Pruebas ---
+# --- Ejemplo con input() ---
+# wax nombre:string = input("Escribe tu nombre: ");
+# print("Hola, " + nombre);
 
 """
 
@@ -213,9 +214,21 @@ class CodeEditor(QPlainTextEdit):
             bottom = top + self.blockBoundingRect(block).height()
             blockNumber += 1
 
+# ===============================================
+# FUNCIÓN PERSONALIZADA DE INPUT
+# ===============================================
+def custom_input(prompt="", parent_widget=None):
+    """
+    Reemplazo de input() que muestra un diálogo de Qt.
+    """
+    text, ok = QInputDialog.getText(parent_widget, "Input", prompt)
+    if ok:
+        return text
+    return ""
+
 # ==============================
 # CLASE PRINCIPAL DE LA APLICACIÓN
-# (Modificada para usar 'CodeEditor')
+# (Modificada para usar 'CodeEditor' y manejar input())
 # ==============================
 
 class CompilerApp(QMainWindow):
@@ -352,7 +365,7 @@ class CompilerApp(QMainWindow):
             self.tab_errors.setText("--- Errores Semánticos ---\n" + "\n".join(analyzer.errors))
             self.output_tabs.setCurrentWidget(self.tab_errors)
         else:
-            self.tab_errors.setText("✔ Compilación exitosa. Sin errores.")
+            self.tab_errors.setText("✓ Compilación exitosa. Sin errores.")
             try:
                 generator = CodeGenerator()
                 python_code = generator.generate(ast)
@@ -383,30 +396,67 @@ class CompilerApp(QMainWindow):
                  self.output_tabs.setCurrentWidget(self.tab_table)
 
     def execute_code(self):
-        """Ejecuta el código de la pestaña 'Código Python'."""
+        """Ejecuta el código de la pestaña 'Código Python' con soporte para input()."""
         
         python_code = self.tab_python.toPlainText()
         if not python_code:
             self.tab_errors.setText("No hay código Python para ejecutar.")
             self.output_tabs.setCurrentWidget(self.tab_errors)
             return
+        
+        # Preparamos un buffer para capturar salida
+        output_lines = []
+        
+        # Creamos una función input personalizada que usa este widget
+        def gui_input(prompt=""):
+            # Mostramos primero todo lo que se ha impreso hasta ahora
+            if output_lines:
+                current_output = "\n".join(output_lines)
+                self.tab_errors.setText(f"--- Ejecutando... ---\n{current_output}")
+                self.output_tabs.setCurrentWidget(self.tab_errors)
+                QApplication.processEvents()  # Forzar actualización de UI
             
-        # Redirigimos stdout para capturar los 'print' del código
-        stdout_capture = io.StringIO()
+            # Mostramos el diálogo
+            text, ok = QInputDialog.getText(self, "Input", prompt)
+            
+            # Guardamos en el log lo que el usuario escribió
+            if ok:
+                output_lines.append(f"{prompt}{text}")
+                return text
+            return ""
+        
+        # Función print personalizada
+        def gui_print(*args, **kwargs):
+            line = " ".join(str(arg) for arg in args)
+            output_lines.append(line)
+            # Actualizamos la UI en tiempo real
+            current_output = "\n".join(output_lines)
+            self.tab_errors.setText(f"--- Ejecutando... ---\n{current_output}")
+            self.output_tabs.setCurrentWidget(self.tab_errors)
+            QApplication.processEvents()
+        
         try:
-            with contextlib.redirect_stdout(stdout_capture):
-                # Usamos exec() para ejecutar el código en un diccionario
-                # de ámbito local.
-                exec(python_code, {}, {})
-                
-            # Si todo salió bien, muestra la salida capturada
-            output = stdout_capture.getvalue()
-            self.tab_errors.setText(f"--- Ejecución Finalizada ---\n{output}")
+            # Creamos un namespace con nuestras funciones personalizadas
+            exec_globals = {
+                'input': gui_input,
+                'print': gui_print,
+                '__builtins__': __builtins__
+            }
+            
+            # Ejecutamos el código
+            exec(python_code, exec_globals, {})
+            
+            # Mostramos la salida final
+            final_output = "\n".join(output_lines)
+            self.tab_errors.setText(f"--- Ejecución Finalizada ---\n{final_output}\n\n✓ Programa terminado exitosamente.")
             
         except Exception as e:
-            # Si el código Python ejecutado falla (ej. División por cero)
-            output = stdout_capture.getvalue()
-            self.tab_errors.setText(f"--- Salida (stdout) ---\n{output}\n--- Error de Ejecución ---\n{type(e).__name__}: {e}")
+            # Si hay error, mostramos lo que se ejecutó hasta el momento
+            partial_output = "\n".join(output_lines)
+            self.tab_errors.setText(
+                f"--- Salida Parcial ---\n{partial_output}\n\n"
+                f"--- Error de Ejecución ---\n{type(e).__name__}: {e}"
+            )
             
         finally:
             self.output_tabs.setCurrentWidget(self.tab_errors)

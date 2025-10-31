@@ -11,7 +11,7 @@ class CodeGenerator:
 
     def generate(self, ast):
         """Punto de entrada principal. Genera código para una lista de nodos."""
-        code_lines = []
+        code_lines = ["import sys"]
         for node in ast:
             # Visita cada nodo de alto nivel (global)
             line = self.visit(node)
@@ -71,12 +71,47 @@ class CodeGenerator:
         var_name = self.visit(node["children"][0])
         expr = self.visit(node["children"][1])
         return f"{var_name} = {expr}"
+    
+    #Generar código para asignaciones compuestas
+    def visit_ASSIGN_COMPOUND(self, node):
+        # Wax: a += 5
+        # Py:  a += 5
+        var_name = self.visit(node["children"][0])
+        expr = self.visit(node["children"][1])
+        operator = node["value"]  # +=, -=, *=, /=
+        return f"{var_name} {operator} {expr}"
+    
+    # Generar código para incremento/decremento
+    def visit_INCREMENT(self, node):
+        # Wax: i++; o ++i; o i--; o --i;
+        # Py:  i += 1 o i -= 1
+        var_name = self.visit(node["children"][0])
+        operator = node["value"]  # ++, --
+        
+        if operator == '++':
+            return f"{var_name} += 1"
+        else:  # --
+            return f"{var_name} -= 1"
+    
+    def visit_LIST_APPEND(self, node):
+        # Wax: mi_lista.append(5)
+        # Py:  mi_lista.append(5)
+        list_name = self.visit(node["children"][0])
+        element = self.visit(node["children"][1])
+        return f"{list_name}.append({element})"
+
+    def visit_LIST_REMOVE(self, node):
+        # Wax: mi_lista.remove(0)  # índice
+        # Py:  del mi_lista[0]
+        list_name = self.visit(node["children"][0])
+        index = self.visit(node["children"][1])
+        return f"del {list_name}[{index}]"
 
     def visit_PRINT(self, node):
         # Wax: print(x)
         # Py:  print(x)
         expr = self.visit(node["children"][0])
-        return f"print({expr})"
+        return f"print({expr}, flush=True)"
 
     def visit_IF(self, node):
         # Wax: if (cond) { ... }
@@ -100,6 +135,60 @@ class CodeGenerator:
         condition = self.visit(node["children"][0])
         block = self.visit(node["children"][1])
         return f"while {condition}:\n{block}"
+    
+    def visit_FOR(self, node):
+        # Wax: for (wax i:int = 0; i < 10; i++) { ... }
+        # Py:  i = 0
+        #      while i < 10:
+        #          ...
+        #          i += 1
+        
+        var_name_node = node["children"][1]
+        init_expr = node["children"][2]
+        condition = node["children"][3]
+        increment = node["children"][4]
+        body = node["children"][5]
+        
+        var_name = self.visit(var_name_node)
+        init_value = self.visit(init_expr)
+        cond = self.visit(condition)
+        
+        # Generar el código del incremento
+        inc_code = self.visit_for_increment(increment)
+        
+        # Convertir el body (lista de statements) en código
+        self.indent_level += 1
+        body_code = []
+        for stmt in body:
+            line = self.visit(stmt)
+            if line:
+                body_code.append(f"{self.indent()}{line}")
+        
+        # Agregar el incremento al final del cuerpo
+        body_code.append(f"{self.indent()}{inc_code}")
+        self.indent_level -= 1
+        
+        body_str = "\n".join(body_code)
+        
+        # Generar el código completo
+        return f"{var_name} = {init_value}\nwhile {cond}:\n{body_str}"
+    
+    def visit_for_increment(self, node):
+        """Genera código para el incremento del for"""
+        if node["type"] == "FOR_INCREMENT":
+            # i++ o i--
+            var_name = self.visit(node["children"][0])
+            operator = node["value"]
+            if operator == '++':
+                return f"{var_name} += 1"
+            else:  # --
+                return f"{var_name} -= 1"
+        elif node["type"] == "FOR_INCREMENT_EXPR":
+            # i += 1, i = i + 1, etc.
+            var_name = self.visit(node["children"][0])
+            expr = self.visit(node["children"][1])
+            operator = node["value"]
+            return f"{var_name} {operator} {expr}"
 
     def visit_FUNCTION(self, node):
         # Wax: wax function mi_func:int(a:int) { ... }
@@ -183,6 +272,18 @@ class CodeGenerator:
         op = "or" if node["value"] == "||" else "and"
         return f"({left} {op} {right})"
     
+    def visit_NOT(self, node):
+        # Wax: !condicion
+        # Py:  not condicion
+        operand = self.visit(node["children"][0])
+        return f"(not {operand})"
+    
+    def visit_UNARY_MINUS(self, node):
+        # Wax: -x
+        # Py:  -x
+        operand = self.visit(node["children"][0])
+        return f"(-{operand})"
+    
     def visit_FUNC_CALL(self, node):
         # Wax: mi_func(a, b)
         # Py:  mi_func(a, b)
@@ -192,6 +293,12 @@ class CodeGenerator:
         return f"{func_name}({', '.join(args)})"
 
     def visit_INPUT(self, node):
-        # Wax: input()
-        # Py:  input()
-        return "input()"
+        # Wax: input() o input("mensaje")
+        # Py:  import sys; sys.stdout.flush(); input() o input("mensaje")
+        if node.get("children") and len(node["children"]) > 0:
+            # input con mensaje - forzamos flush antes
+            message = self.visit(node["children"][0])
+            return f"(sys.stdout.flush() or input({message}))"
+        else:
+            # input sin mensaje
+            return "(sys.stdout.flush() or input())"

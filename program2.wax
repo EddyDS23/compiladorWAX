@@ -1,0 +1,17 @@
+for (wax i:int = 0; i < 5; i++) {
+    print(str(i));
+}
+
+for (wax i:int = 0; i <= 10; i += 2) {
+    print(str(i));
+}
+
+for (wax i:int = 10; i >= 0; i--) {
+    print(str(i));
+}
+
+wax numeros:list = [10, 20, 30, 40, 50];
+
+for (wax i:int = 0; i < 5; i++) {
+    print("numeros[" + str(i) + "] = " + str(numeros[i]));
+}

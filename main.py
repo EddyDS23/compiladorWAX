@@ -172,21 +172,17 @@ def main():
 
     if args.execute:
         print("\n=== FASE 5: EJECUTANDO CÓDIGO... ===")
-        stdout_capture = io.StringIO()
+        print("--- Salida del Programa ---")
         try:
-            # Redirigimos la salida estándar para capturar los 'print'
-            with contextlib.redirect_stdout(stdout_capture):
-                exec(python_code, {}, {})
+            # NO capturamos stdout para que input() funcione correctamente
+            # El código se ejecuta directamente mostrando todo en tiempo real
+            exec(python_code, {}, {})
             
-            output = stdout_capture.getvalue()
-            if output:
-                print("--- Salida del Programa ---")
-                print(output, end='') # 'end' para evitar doble salto de línea
-                print("---------------------------")
-            print("✔ Ejecución finalizada.")
+            print("---------------------------")
+            print("✓ Ejecución finalizada.")
 
         except Exception as e:
-            print(f"[Error de Ejecución] El programa generado falló.")
+            print(f"\n[Error de Ejecución] El programa generado falló.")
             print(f"    > {type(e).__name__}: {e}")
             sys.exit(1)
     

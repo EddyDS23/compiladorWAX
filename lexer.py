@@ -13,48 +13,62 @@ keywords = {
     "input": "INPUT",
     "if": "IF",
     "else": "ELSE",
+    "for": "FOR", 
     "while": "WHILE",
     "return": "RETURN",
     "true": "BOOL",
     "false": "BOOL",
     "str": "STR",
     "void":"VOID",
+    "append":"APPEND",
+    "remove":"REMOVE",
 }
 
 tokens = (
     "IDENT","INT","DOUBLE","STRING",
     "PLUS","MINUS","STAR","SLASH",
+    "PLUSEQ","MINUSEQ","STAREQ","SLASHEQ", 
+    "PLUSPLUS","MINUSMINUS", 
     "EQUAL","EQEQ","NOTEQ","LT","GT","LE","GE",
-    "AND","OR",
+    "AND","OR","NOT",
     "SEMI","LPAREN","RPAREN","LBRACE","RBRACE",
     "COLON","COMMA","LBRACKET","RBRACKET",
-    "COMMENT_LINE","COMMENT_BLOCK"
+    "COMMENT_LINE","COMMENT_BLOCK",
+    "DOT"
 ) + tuple(keywords.values())
 
 # Símbolos
-t_PLUS   = r"\+"
-t_MINUS  = r"-"
-t_STAR   = r"\*"
-t_SLASH  = r"/"
-t_EQEQ   = r"=="
-t_NOTEQ  = r"!="
-t_LE     = r"<="
-t_GE     = r">="
-t_LT     = r"<"
-t_GT     = r">"
-t_EQUAL  = r"="
-t_AND    = r"&&"
-t_OR     = r"\|\|"
-t_SEMI   = r";"
-t_COMMA  = r","
-t_LPAREN = r"\("
-t_RPAREN = r"\)"
-t_LBRACE = r"\{"
-t_RBRACE = r"\}"
-t_LBRACKET = r"\["
-t_RBRACKET = r"\]"
-t_COLON  = r":"
-t_ignore = " \t"
+t_PLUSEQ     = r"\+="   
+t_MINUSEQ    = r"-="    
+t_STAREQ     = r"\*="   
+t_SLASHEQ    = r"/="  
+t_PLUSPLUS   = r"\+\+"   
+t_MINUSMINUS = r"--" 
+t_EQEQ       = r"=="     
+t_NOTEQ      = r"!="
+t_NOT        = r"!"
+t_LE         = r"<="     
+t_GE         = r">="     
+t_PLUS       = r"\+"
+t_MINUS      = r"-"
+t_STAR       = r"\*"
+t_SLASH      = r"/"
+t_LT         = r"<"
+t_GT         = r">"
+t_EQUAL      = r"="
+t_AND        = r"&&"
+t_OR         = r"\|\|"
+t_SEMI       = r";"
+t_COMMA      = r","
+t_LPAREN     = r"\("
+t_RPAREN     = r"\)"
+t_LBRACE     = r"\{"
+t_RBRACE     = r"\}"
+t_LBRACKET   = r"\["
+t_RBRACKET   = r"\]"
+t_COLON      = r":"
+t_DOT        = r"\."
+t_ignore     = " \t"
 
 def t_COMMENT_LINE(t):
     r"\#.*"

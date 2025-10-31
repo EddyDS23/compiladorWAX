@@ -88,5 +88,8 @@ print("Por promedio: " + str(rechazos_promedio));
 print("---------------------------------");
 
 # --- Pruebas ---
+#print("Escribir: ");
+wax prueba:string = input("Escribe:");
+print(prueba);
 
 
