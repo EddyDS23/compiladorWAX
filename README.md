@@ -4,7 +4,7 @@
 
 El proyecto incluye tanto la lógica del compilador de 4 fases como una interfaz gráfica de usuario (GUI) completa construida con PySide6.
 
-![Screenshot del IDE de WAX](https://i.imgur.com/Tu-URL.png) 
+![Screenshot del IDE de WAX](./GUI_screenshot.png) 
 *(Sugerencia: Reemplaza este enlace con una captura de pantalla real de tu GUI)*
 
 ---
