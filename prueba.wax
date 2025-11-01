@@ -1,0 +1,22 @@
+wax function imprimirEstadisticas : void(aprobados:int, reprobados:int, total:int) {
+    print("=======================================");
+    print("        ESTADISTICAS FINALES");
+    print("=======================================");
+    print("Total de estudiantes: " + str(total));
+    print("Aprobados: " + str(aprobados));
+    print("Reprobados: " + str(reprobados));
+    
+    # Calculo de porcentajes
+    wax porcentaje_aprobados:int = aprobados * 100 / total;
+    print("Porcentaje de aprobacion: " + str(porcentaje_aprobados) + "%");
+    print("=======================================");
+    return;
+}
+
+wax function imprimir: void(){
+    print("Ola");
+}
+
+imprimir
+
+

@@ -1,0 +1,539 @@
+/*
+ * ╔============================================================
+ * =  SISTEMA DE GESTION DE ESTUDIANTES - WAX v1.0             =
+ * =  Programa completo que demuestra TODAS las funciones      =
+ * ╚============================================================
+ */
+
+# =============================================================
+# SECCION 1: FUNCIONES DE VALIDACION Y CALCULO
+# =============================================================
+
+# Funcion que valida si un numero esta en rango
+wax function enRango : bool(valor:int, minimo:int, maximo:int) {
+    if (valor < minimo || valor > maximo) {
+        return false;
+    }
+    return true;
+}
+
+# Funcion que calcula el promedio de tres calificaciones
+wax function calcularPromedio : int(calif1:int, calif2:int, calif3:int) {
+    wax suma:int = calif1 + calif2 + calif3;
+    wax promedio:int = suma / 3;
+    return promedio;
+}
+
+# Funcion que determina si un estudiante aprueba o reprueba
+wax function evaluarEstudiante : string(promedio:int, asistencia:int) {
+    # Uso del operador NOT (!)
+    if (!enRango(promedio, 0, 100)) {
+        return "error_promedio";
+    }
+    
+    if (!enRango(asistencia, 0, 100)) {
+        return "error_asistencia";
+    }
+    
+    # Estudiante aprueba si tiene promedio >= 70 Y asistencia >= 80
+    if (promedio >= 70 && asistencia >= 80) {
+        return "aprobado";
+    }
+    
+    # Si tiene buen promedio pero mala asistencia
+    if (promedio >= 70 && asistencia < 80) {
+        return "reprobado_asistencia";
+    }
+    
+    # Si tiene buena asistencia pero mal promedio
+    if (promedio < 70 && asistencia >= 80) {
+        return "reprobado_promedio";
+    }
+    
+    # Reprobado en ambos
+    return "reprobado_ambos";
+}
+
+# Funcion sin retorno (void) para imprimir estadisticas
+wax function imprimirEstadisticas : void(aprobados:int, reprobados:int, total:int) {
+    print("=======================================");
+    print("        ESTADISTICAS FINALES");
+    print("=======================================");
+    print("Total de estudiantes: " + str(total));
+    print("Aprobados: " + str(aprobados));
+    print("Reprobados: " + str(reprobados));
+    
+    # Calculo de porcentajes
+    wax porcentaje_aprobados:int = aprobados * 100 / total;
+    print("Porcentaje de aprobacion: " + str(porcentaje_aprobados) + "%");
+    print("=======================================");
+    return;
+}
+
+# Funcion para clasificar por rango de promedio
+wax function clasificarPromedio : string(promedio:int) {
+    if (promedio >= 90) {
+        return "Excelente";
+    }
+    if (promedio >= 80) {
+        return "Muy Bien";
+    }
+    if (promedio >= 70) {
+        return "Bien";
+    }
+    if (promedio >= 60) {
+        return "Regular";
+    }
+    return "Insuficiente";
+}
+
+# =============================================================
+# SECCION 2: DECLARACION DE VARIABLES GLOBALES
+# =============================================================
+
+# Contadores (usando operadores de incremento/decremento)
+wax total_estudiantes:int = 5;
+wax aprobados:int = 0;
+wax reprobados:int = 0;
+
+# Acumuladores (usando asignaciones compuestas)
+wax suma_promedios:int = 0;
+wax suma_asistencias:int = 0;
+
+# Listas tipadas para almacenar datos de 5 estudiantes
+wax nombres:list = [];
+wax calif1_lista:list = [];
+wax calif2_lista:list = [];
+wax calif3_lista:list = [];
+wax promedios:list = [];
+wax asistencias:list = [];
+wax estados:list = [];
+
+# Variables para calculos
+wax promedio_temp:int = 0;
+wax asistencia_temp:int = 0;
+
+# Variables con operador unario negativo
+wax temperatura_minima:int = -10;
+wax deuda_inicial:int = -500;
+wax ajuste_negativo:int = -5;
+
+# =============================================================
+# SECCION 3: CARGA DE DATOS DE EJEMPLO
+# =============================================================
+
+print("╔============================================");
+print("=  SISTEMA DE GESTION DE ESTUDIANTES        =");
+print("╚============================================");
+print("");
+print("Cargando datos de estudiantes...");
+print("");
+
+# Datos del estudiante 1
+nombres.append("Ana Garcia");
+calif1_lista.append(85);
+calif2_lista.append(90);
+calif3_lista.append(88);
+asistencias.append(85);
+
+# Datos del estudiante 2
+nombres.append("Luis Perez");
+calif1_lista.append(60);
+calif2_lista.append(65);
+calif3_lista.append(62);
+asistencias.append(70);
+
+# Datos del estudiante 3
+nombres.append("Maria Lopez");
+calif1_lista.append(95);
+calif2_lista.append(92);
+calif3_lista.append(98);
+asistencias.append(95);
+
+# Datos del estudiante 4
+nombres.append("Carlos Ruiz");
+calif1_lista.append(70);
+calif2_lista.append(75);
+calif3_lista.append(72);
+asistencias.append(82);
+
+# Datos del estudiante 5
+nombres.append("Sofia Torres");
+calif1_lista.append(50);
+calif2_lista.append(55);
+calif3_lista.append(52);
+asistencias.append(60);
+
+# =============================================================
+# SECCION 4: PROCESAMIENTO CON BUCLE FOR Y OPERADORES
+# =============================================================
+
+print("===========================================");
+print("  EVALUACION DE ESTUDIANTES");
+print("===========================================");
+print("");
+
+# FOR basico con incremento ++
+for (wax i:int = 0; i < 5; i++) {
+    # Obtener datos del estudiante actual
+    wax c1:int = calif1_lista[i];
+    wax c2:int = calif2_lista[i];
+    wax c3:int = calif3_lista[i];
+    wax asist:int = asistencias[i];
+    
+    # Calcular promedio usando funcion
+    wax prom:int = calcularPromedio(c1, c2, c3);
+    promedios.append(prom);
+    
+    # Evaluar estudiante
+    wax estado:string = evaluarEstudiante(prom, asist);
+    estados.append(estado);
+    
+    # Imprimir resultado
+    print("Estudiante #" + str(i + 1) + ": " + nombres[i]);
+    print("  Calificaciones: " + str(c1) + ", " + str(c2) + ", " + str(c3));
+    print("  Promedio: " + str(prom) + " - " + clasificarPromedio(prom));
+    print("  Asistencia: " + str(asist) + "%");
+    print("  Estado: " + estado);
+    print("");
+    
+    # Actualizar contadores usando operadores compuestos
+    suma_promedios += prom;
+    suma_asistencias += asist;
+    
+    # Contar aprobados/reprobados
+    if (estado == "aprobado") {
+        aprobados++;
+    } else {
+        reprobados++;
+    }
+}
+
+# =============================================================
+# SECCION 5: BUSQUEDA DEL MEJOR ESTUDIANTE
+# =============================================================
+
+print("===========================================");
+print("  ANALISIS DE RENDIMIENTO");
+print("===========================================");
+
+wax mejor_promedio:int = 0;
+wax mejor_indice:int = 0;
+
+# Buscar el mejor promedio
+for (wax j:int = 0; j < 5; j++) {
+    if (promedios[j] > mejor_promedio) {
+        mejor_promedio = promedios[j];
+        mejor_indice = j;
+    }
+}
+
+print(" Mejor estudiante: " + nombres[mejor_indice]);
+print("   Promedio: " + str(mejor_promedio));
+print("");
+
+# Buscar el peor promedio (usando operador de comparacion)
+wax peor_promedio:int = 100;
+wax peor_indice:int = 0;
+
+for (wax k:int = 0; k < 5; k++) {
+    if (promedios[k] < peor_promedio) {
+        peor_promedio = promedios[k];
+        peor_indice = k;
+    }
+}
+
+print("  Estudiante en riesgo: " + nombres[peor_indice]);
+print("   Promedio: " + str(peor_promedio));
+print("");
+
+# =============================================================
+# SECCION 6: ESTADISTICAS CON OPERADORES COMPUESTOS
+# =============================================================
+
+print("===========================================");
+print("  CALCULOS ESTADISTICOS");
+print("===========================================");
+
+# Calcular promedio general
+wax promedio_general:int = suma_promedios / total_estudiantes;
+wax asistencia_general:int = suma_asistencias / total_estudiantes;
+
+print("Promedio general del grupo: " + str(promedio_general));
+print("Asistencia general del grupo: " + str(asistencia_general) + "%");
+print("");
+
+# Contar estudiantes por encima y debajo del promedio
+wax arriba_promedio:int = 0;
+wax debajo_promedio:int = 0;
+
+for (wax m:int = 0; m < 5; m++) {
+    if (promedios[m] >= promedio_general) {
+        arriba_promedio++;
+    } else {
+        debajo_promedio++;
+    }
+}
+
+print("Estudiantes arriba del promedio: " + str(arriba_promedio));
+print("Estudiantes debajo del promedio: " + str(debajo_promedio));
+print("");
+
+# =============================================================
+# SECCION 7: USO DEL OPERADOR NOT EN ALERTAS
+# =============================================================
+
+print("===========================================");
+print("  ALERTAS Y RECOMENDACIONES");
+print("===========================================");
+
+wax cumple_estandares:bool = promedio_general >= 70 && asistencia_general >= 80;
+
+# Uso del operador NOT (!)
+if (!cumple_estandares) {
+    print("  ALERTA: El grupo NO cumple los estandares minimos");
+    
+    if (promedio_general < 70) {
+        print("   - Promedio del grupo es bajo");
+    }
+    
+    if (asistencia_general < 80) {
+        print("   - Asistencia del grupo es baja");
+    }
+} else {
+    print(" El grupo cumple con los estandares minimos");
+}
+
+print("");
+
+# =============================================================
+# SECCION 8: LLAMADA A FUNCION VOID
+# =============================================================
+
+imprimirEstadisticas(aprobados, reprobados, total_estudiantes);
+
+print("");
+print("===========================================");
+print("  DETALLES POR TIPO DE REPROBACION");
+print("===========================================");
+
+# Contadores especificos
+wax rep_asistencia:int = 0;
+wax rep_promedio:int = 0;
+wax rep_ambos:int = 0;
+
+# Analisis detallado con FOR
+for (wax n:int = 0; n < 5; n++) {
+    wax estado_n:string = estados[n];
+    
+    if (estado_n == "reprobado_asistencia") {
+        rep_asistencia++;
+    }
+    
+    if (estado_n == "reprobado_promedio") {
+        rep_promedio++;
+    }
+    
+    if (estado_n == "reprobado_ambos") {
+        rep_ambos++;
+    }
+}
+
+print("Reprobados por asistencia: " + str(rep_asistencia));
+print("Reprobados por promedio: " + str(rep_promedio));
+print("Reprobados por ambos: " + str(rep_ambos));
+print("");
+
+# =============================================================
+# SECCION 9: SIMULACION DE MEJORA CON OPERADORES
+# =============================================================
+
+print("===========================================");
+print("  SIMULACION DE MEJORA");
+print("===========================================");
+
+wax puntos_extra:int = 5;
+wax estudiantes_mejorados:int = 0;
+
+print("Aplicando " + str(puntos_extra) + " puntos extra...");
+print("");
+
+for (wax p:int = 0; p < 5; p++) {
+    wax prom_original:int = promedios[p];
+    
+    if (prom_original < 70) {
+        # Usar operador compuesto +=
+        wax prom_nuevo:int = prom_original;
+        prom_nuevo += puntos_extra;
+        
+        print("Estudiante: " + nombres[p]);
+        print("  Promedio original: " + str(prom_original));
+        print("  Promedio nuevo: " + str(prom_nuevo));
+        
+        if (prom_nuevo >= 70) {
+            print("   Ahora APRUEBA");
+            estudiantes_mejorados++;
+        } else {
+            print("   Aun reprueba");
+        }
+        print("");
+    }
+}
+
+print("Estudiantes que mejoraron: " + str(estudiantes_mejorados));
+print("");
+
+# =============================================================
+# SECCION 10: BUCLE WHILE CON CONTADOR
+# =============================================================
+
+print("===========================================");
+print("  GENERACION DE REPORTE (bucle WHILE)");
+print("===========================================");
+
+wax contador:int = 0;
+
+while (contador < 5) {
+    print(str(contador + 1) + ". " + nombres[contador] + " - Promedio: " + str(promedios[contador]));
+    contador++;
+}
+
+print("");
+
+# =============================================================
+# SECCION 11: OPERADOR UNARIO NEGATIVO Y COMPUESTOS
+# =============================================================
+
+print("===========================================");
+print("  OPERACIONES CON NUMEROS NEGATIVOS");
+print("===========================================");
+
+wax balance:int = 1000;
+wax cargo:int = -150;
+
+print("Balance inicial: $" + str(balance));
+print("Cargo (negativo): $" + str(cargo));
+
+# Operador compuesto +=
+balance += cargo;
+print("Balance despues del cargo: $" + str(balance));
+
+# Operador compuesto -=
+wax retiro:int = 50;
+balance -= retiro;
+print("Balance despues del retiro: $" + str(balance));
+
+# Operador unario negativo
+wax deposito:int = 200;
+wax reembolso:int = -deposito;
+print("Deposito: $" + str(deposito));
+print("Reembolso (negativo): $" + str(reembolso));
+
+print("");
+
+# =============================================================
+# SECCION 12: FOR DESCENDENTE Y OPERADOR --
+# =============================================================
+
+print("===========================================");
+print("  CUENTA REGRESIVA (FOR descendente)");
+print("===========================================");
+
+# FOR descendente con decremento --
+for (wax cuenta:int = 5; cuenta >= 1; cuenta--) {
+    print("Posicion #" + str(cuenta) + ": " + nombres[cuenta - 1]);
+}
+
+print("");
+
+# =============================================================
+# SECCION 13: FOR CON PASO PERSONALIZADO
+# =============================================================
+
+print("===========================================");
+print("  ESTUDIANTES EN POSICIONES PARES");
+print("===========================================");
+
+# FOR con incremento de 2 (paso personalizado)
+for (wax par:int = 0; par < 5; par += 2) {
+    print("Posicion " + str(par) + ": " + nombres[par]);
+}
+
+print("");
+
+# =============================================================
+# SECCION 14: OPERACIONES ARITMETICAS COMPLEJAS
+# =============================================================
+
+print("===========================================");
+print("  CALCULOS AVANZADOS");
+print("===========================================");
+
+wax total_puntos:int = suma_promedios;
+print("Total de puntos acumulados: " + str(total_puntos));
+
+# Usar operadores compuestos multiples
+wax puntos_ajustados:int = total_puntos;
+puntos_ajustados *= 2;
+print("Puntos x2: " + str(puntos_ajustados));
+
+puntos_ajustados /= 5;
+print("Puntos promedio x2: " + str(puntos_ajustados));
+
+print("");
+
+# =============================================================
+# SECCION 15: VALIDACIONES CON OPERADORES LOGICOS
+# =============================================================
+
+print("===========================================");
+print("  VALIDACIONES FINALES");
+print("===========================================");
+
+wax todos_aprueban:bool = aprobados == total_estudiantes;
+wax nadie_aprueba:bool = reprobados == total_estudiantes;
+
+if (todos_aprueban) {
+    print("  ¡Felicidades! Todos los estudiantes aprobaron");
+}
+
+if (nadie_aprueba) {
+    print("  Ningun estudiante aprobo");
+}
+
+if (!todos_aprueban && !nadie_aprueba) {
+    print(" Resultados mixtos en el grupo");
+}
+
+print("");
+
+# =============================================================
+# SECCION 16: RESUMEN FINAL
+# =============================================================
+
+print("╔============================================");
+print("=  PROGRAMA FINALIZADO EXITOSAMENTE         =");
+print("╚============================================");
+print("");
+print("Funcionalidades demostradas:");
+print("   Declaracion de variables (int, string, bool, list)");
+print("   Funciones con retorno (bool, int, string)");
+print("   Funciones void");
+print("   Condicionales (if/else)");
+print("   Bucles (while y for)");
+print("   FOR basico (i++)");
+print("   FOR descendente (i--)");
+print("   FOR con paso (i+=2)");
+print("   Listas y metodo append()");
+print("   Acceso a listas por indice");
+print("   Operadores compuestos (+=, -=, *=, /=)");
+print("   Incremento/Decremento (++, --)");
+print("   Operador NOT (!)");
+print("   Operador unario negativo (-)");
+print("   Operaciones aritmeticas (+, -, *, /)");
+print("   Operaciones logicas (&&, ||)");
+print("   Comparaciones relacionales (<, >, <=, >=, ==, !=)");
+print("   Manejo de scopes");
+print("   Conversion a string str()");
+print("");
+print("¡Gracias por usar el compilador WAX! ");

@@ -251,16 +251,9 @@ class CompilerApp(QMainWindow):
         self.btn_execute = QPushButton("Ejecutar (F6)")
         self.btn_execute.setShortcut("F6")
         self.btn_execute.setEnabled(False)
-        
-        self.chk_tokens = QCheckBox("Mostrar Tokens")
-        self.chk_ast = QCheckBox("Mostrar AST")
-        self.chk_table = QCheckBox("Mostrar Tabla de Símbolos")
-        
+    
         controls_layout.addWidget(self.btn_compile)
         controls_layout.addWidget(self.btn_execute)
-        controls_layout.addWidget(self.chk_tokens)
-        controls_layout.addWidget(self.chk_ast)
-        controls_layout.addWidget(self.chk_table)
         controls_layout.addStretch()
 
         # 2. Editor de Código (Izquierda)
@@ -294,6 +287,7 @@ class CompilerApp(QMainWindow):
         self.output_tabs.addTab(self.tab_tokens, "Tokens")
         self.output_tabs.addTab(self.tab_ast, "AST")
         self.output_tabs.addTab(self.tab_table, "Tabla de Símbolos")
+        self.output_tabs.addTab(self.tab_python, "Codigo Python")
 
         # --- Layouts Principales ---
         splitter = QSplitter(Qt.Orientation.Horizontal)
@@ -377,23 +371,18 @@ class CompilerApp(QMainWindow):
                 self.output_tabs.setCurrentWidget(self.tab_errors)
 
         # --- FASE 4: REPORTE ---
-        if self.chk_tokens.isChecked():
+        if not analyzer.errors:
+            # Tokens
             tokens_str = "\n".join([f"{tok.type}: {tok.value} (linea {tok.lineno})" for tok in token_list])
             self.tab_tokens.setText(tokens_str)
-            if not analyzer.errors:
-                self.output_tabs.setCurrentWidget(self.tab_tokens)
-
-        if self.chk_ast.isChecked():
+            
+            # AST
             ast_str = format_ast_string(ast, stream=io.StringIO())
             self.tab_ast.setText(ast_str)
-            if not analyzer.errors and not self.chk_tokens.isChecked():
-                 self.output_tabs.setCurrentWidget(self.tab_ast)
-
-        if self.chk_table.isChecked():
+            
+            # Tabla de símbolos
             table_str = json.dumps(analyzer.symbol_log, indent=2)
             self.tab_table.setText(table_str)
-            if not analyzer.errors and not self.chk_tokens.isChecked() and not self.chk_ast.isChecked():
-                 self.output_tabs.setCurrentWidget(self.tab_table)
 
     def execute_code(self):
         """Ejecuta el código de la pestaña 'Código Python' con soporte para input()."""
