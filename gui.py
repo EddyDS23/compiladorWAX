@@ -433,7 +433,7 @@ class CompilerApp(QMainWindow):
             }
             
             # Ejecutamos el código
-            exec(python_code, exec_globals, {})
+            exec(python_code, exec_globals, exec_globals)
             
             # Mostramos la salida final
             final_output = "\n".join(output_lines)

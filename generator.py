@@ -302,3 +302,8 @@ class CodeGenerator:
         else:
             # input sin mensaje
             return "(sys.stdout.flush() or input())"
+        
+    def visit_EXPR_STATEMENT(self, node):
+        # La traduccion de un 'EXPR_STATEMENT' es solo la expresion misma.
+        # Por ej: enRango(1,2,3) se traduce a enRango(1,2,3) en Python.
+        return self.visit(node["children"][0])

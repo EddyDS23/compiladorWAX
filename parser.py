@@ -167,6 +167,10 @@ def p_statement_func(p):
     id_node = make_node("Identifier", value=p[3], lineno=p.lineno(3))
     p[0] = make_node("FUNCTION", [p[5], id_node, p[7], p[10]], lineno=p.lineno(1))
 
+def p_statement_expression(p):
+    """statement : expression SEMI"""
+    p[0] = make_node("EXPR_STATEMENT", [p[1]], lineno=p.lineno(2))
+
 # ---------- EXPRESSIONS ----------
 def p_expression_binop(p):
     """expression : expression PLUS expression

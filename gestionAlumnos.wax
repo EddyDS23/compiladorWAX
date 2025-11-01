@@ -1,8 +1,8 @@
 /*
- * ╔============================================================
+ * =============================================================
  * =  SISTEMA DE GESTION DE ESTUDIANTES - WAX v1.0             =
  * =  Programa completo que demuestra TODAS las funciones      =
- * ╚============================================================
+ * =============================================================
  */
 
 # =============================================================
@@ -122,9 +122,9 @@ wax ajuste_negativo:int = -5;
 # SECCION 3: CARGA DE DATOS DE EJEMPLO
 # =============================================================
 
-print("╔============================================");
+print("=============================================");
 print("=  SISTEMA DE GESTION DE ESTUDIANTES        =");
-print("╚============================================");
+print("=============================================");
 print("");
 print("Cargando datos de estudiantes...");
 print("");
@@ -494,7 +494,7 @@ wax todos_aprueban:bool = aprobados == total_estudiantes;
 wax nadie_aprueba:bool = reprobados == total_estudiantes;
 
 if (todos_aprueban) {
-    print("  ¡Felicidades! Todos los estudiantes aprobaron");
+    print("  Felicidades! Todos los estudiantes aprobaron");
 }
 
 if (nadie_aprueba) {
@@ -511,9 +511,9 @@ print("");
 # SECCION 16: RESUMEN FINAL
 # =============================================================
 
-print("╔============================================");
+print("=============================================");
 print("=  PROGRAMA FINALIZADO EXITOSAMENTE         =");
-print("╚============================================");
+print("=============================================");
 print("");
 print("Funcionalidades demostradas:");
 print("   Declaracion de variables (int, string, bool, list)");
@@ -536,4 +536,4 @@ print("   Comparaciones relacionales (<, >, <=, >=, ==, !=)");
 print("   Manejo de scopes");
 print("   Conversion a string str()");
 print("");
-print("¡Gracias por usar el compilador WAX! ");
+print("Gracias por usar el compilador WAX! ");

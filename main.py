@@ -176,7 +176,8 @@ def main():
         try:
             # NO capturamos stdout para que input() funcione correctamente
             # El código se ejecuta directamente mostrando todo en tiempo real
-            exec(python_code, {}, {})
+            shared_scope = {}
+            exec(python_code, shared_scope,shared_scope)
             
             print("---------------------------")
             print("✓ Ejecución finalizada.")

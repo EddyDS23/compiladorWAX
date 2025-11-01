@@ -408,6 +408,13 @@ class SemanticAnalyzer:
         if first_pass: return
         self.get_expr_type(node["children"][0])
 
+    def visit_EXPR_STATEMENT(self, node, first_pass=False):
+        if first_pass: return
+        # Simplemente obtenemos el tipo de la expresion hija.
+        # Esto es crucial, ya que si la expresion es un FUNC_CALL,
+        # llamara a get_expr_type_FUNC_CALL, validando la llamada.
+        self.get_expr_type(node["children"][0])
+
     def visit_IF_ELSE(self, node, first_pass=False):
         if first_pass: return
         # 1. Analiza la condición (igual que en visit_IF)

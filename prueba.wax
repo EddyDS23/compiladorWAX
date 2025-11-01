@@ -13,10 +13,5 @@ wax function imprimirEstadisticas : void(aprobados:int, reprobados:int, total:in
     return;
 }
 
-wax function imprimir: void(){
-    print("Ola");
-}
 
-imprimir
-
-
+imprimirEstadisticas(2,3,5);
