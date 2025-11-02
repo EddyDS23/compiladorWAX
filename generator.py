@@ -257,11 +257,13 @@ class CodeGenerator:
         return f"{list_name}[{index}]"
 
     def visit_BINOP(self, node):
-        # Wax: a + b
-        # Py:  (a + b) (los paréntesis aseguran la precedencia)
+        # Wax: a + b, a % b, a ** b
+        # Py:  (a + b), (a % b), (a ** b)
         left = self.visit(node["children"][0])
         right = self.visit(node["children"][1])
         op = node["value"]
+        
+        # Python usa los mismos operadores
         return f"({left} {op} {right})"
 
     def visit_LOGIC(self, node):

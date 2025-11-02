@@ -432,7 +432,7 @@ class CompilerApp(QMainWindow):
                 '__builtins__': __builtins__
             }
             
-            # Ejecutamos el código
+            # Ejecutamos el código  
             exec(python_code, exec_globals, exec_globals)
             
             # Mostramos la salida final

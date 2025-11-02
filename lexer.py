@@ -26,7 +26,7 @@ keywords = {
 
 tokens = (
     "IDENT","INT","DOUBLE","STRING",
-    "PLUS","MINUS","STAR","SLASH",
+    "PLUS","MINUS","STAR","SLASH","MOD","POW", 
     "PLUSEQ","MINUSEQ","STAREQ","SLASHEQ", 
     "PLUSPLUS","MINUSMINUS", 
     "EQUAL","EQEQ","NOTEQ","LT","GT","LE","GE",
@@ -52,7 +52,9 @@ t_GE         = r">="
 t_PLUS       = r"\+"
 t_MINUS      = r"-"
 t_STAR       = r"\*"
+t_POW        = r"\*\*"
 t_SLASH      = r"/"
+t_MOD        = r"%"
 t_LT         = r"<"
 t_GT         = r">"
 t_EQUAL      = r"="

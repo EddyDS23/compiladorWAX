@@ -692,19 +692,46 @@ class SemanticAnalyzer:
         op = node["value"]
         lineno = node["lineno"]
         
+        # Validar división por cero
         if op == '/':
             right_node = node["children"][1]
             if right_node["type"] == 'NUMBER' and right_node["value"] == 0:
                 self._error("División por cero detectada en tiempo de compilación.", lineno)
+                return "error"
+        
+        # Validar módulo por cero
+        if op == '%':
+            right_node = node["children"][1]
+            if right_node["type"] == 'NUMBER' and right_node["value"] == 0:
+                self._error("Módulo por cero detectada en tiempo de compilación.", lineno)
                 return "error"
 
         if left_type == "error" or right_type == "error": return "error"
         if op in ('==', '!=', '<', '>', '<=', '>='): return "bool"
         if op == '+' and ("string" in (left_type, right_type)): return "string"
 
+        # Validar que son operaciones numéricas
         if left_type not in ("int", "double") or right_type not in ("int", "double"):
             self._error(f"Operación aritmética '{op}' inválida entre tipos '{left_type}' y '{right_type}'.", lineno)
             return "error"
+        
+        # Módulo solo funciona con enteros
+        if op == '%':
+            if left_type != "int" or right_type != "int":
+                self._error(f"El operador '%' (módulo) solo funciona con tipos 'int', pero se encontró '{left_type}' y '{right_type}'.", lineno)
+                return "error"
+            return "int"
+        
+        # Potencia puede devolver double si hay exponentes negativos o decimales
+        if op == '**':
+            # Si ambos son int y el exponente es positivo, devuelve int
+            if left_type == "int" and right_type == "int":
+                right_node = node["children"][1]
+                # Si el exponente es literal y positivo, devuelve int
+                if right_node["type"] == 'NUMBER' and right_node["value"] >= 0:
+                    return "int"
+            # En cualquier otro caso, devuelve double por seguridad
+            return "double"
             
         if left_type == "double" or right_type == "double": return "double"
         return "int"

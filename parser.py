@@ -19,7 +19,8 @@ precedence = (
      ("right", "UMINUS"), 
     ("left", "EQEQ", "NOTEQ", "LT", "LE", "GT", "GE"),
     ("left", "PLUS", "MINUS"),
-    ("left", "STAR", "SLASH"),
+    ("left", "STAR", "SLASH","MOD"),
+    ("right", "POW"),
 )
 
 # ---------- PROGRAM ----------
@@ -176,7 +177,9 @@ def p_expression_binop(p):
     """expression : expression PLUS expression
                   | expression MINUS expression
                   | expression STAR expression
-                  | expression SLASH expression"""
+                  | expression SLASH expression
+                  | expression MOD expression
+                  | expression POW expression"""
     p[0] = make_node("BINOP", [p[1], p[3]], value=p[2], lineno=p.lineno(2))
 
 def p_expression_comparison(p):

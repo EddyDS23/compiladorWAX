@@ -1,17 +1,15 @@
-wax function imprimirEstadisticas : void(aprobados:int, reprobados:int, total:int) {
-    print("=======================================");
-    print("        ESTADISTICAS FINALES");
-    print("=======================================");
-    print("Total de estudiantes: " + str(total));
-    print("Aprobados: " + str(aprobados));
-    print("Reprobados: " + str(reprobados));
-    
-    # Calculo de porcentajes
-    wax porcentaje_aprobados:int = aprobados * 100 / total;
-    print("Porcentaje de aprobacion: " + str(porcentaje_aprobados) + "%");
-    print("=======================================");
-    return;
+print("Tabla de cuadrados:");
+
+for (wax n:int = 1; n <= 5; n++) {
+    wax cuadrado:int = n ** 2;
+    print(str(n) + " al cuadrado = " + str(cuadrado));
 }
 
-
-imprimirEstadisticas(2,3,5);
+#**Salida:**
+##```
+#Tabla de cuadrados:
+#1 al cuadrado = 1
+#2 al cuadrado = 4
+#3 al cuadrado = 16
+#4 al cuadrado = 16
+#5 al cuadrado = 25
